@@ -7,6 +7,8 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+# Se hizo un cambio AQUI!
+
 
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True)
