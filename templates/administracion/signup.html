@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp - Olympic</title>
+</head>
+<body>
+    <h2>SIGN UP - OLYMPIC</h2>
+    <div>
+        <form method="POST" action="{% url "signup_cliente" %}">
+            {% csrf_token %}
+            <label>Nombre de Usuario:</label><br>
+            <input type="text" name="username" required><br><br>
+            <label>Nombre:</label><br>
+            <input type="text" name="nombre" required><br><br>
+            <label>Apellido:</label><br>
+            <input type="text" name="apellido" required><br><br>
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br><br>
+            <label>Telefono:</label><br>
+            <input type="text" name="telefono" required><br><br>
+            <label>Contreseña:</label><br>
+            <input type="password" name="password" required><br><br>   
+            <button type="submit">Crear Cuenta</button>        
+        </form>
+    </div>
+    <a href="{% url "iniciar_sesion" %}">¿Ya tienes una cuenta? Inicia Sesión</a>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Olympic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link rel="icon" href="{% static "img/Olympic-logo3.png" %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% block header %}
+    <header>
+        <div class="div-animation-bar">
+            <div class="animation-bar"></div>
+        </div>
+        <nav class="nav">
+            <div class="div-image">
+                <a href="{% url "inicio" %}"><img src={% static "img/olympic-logo4.png" %} alt="Logo Olympic" class="img-logo"></a>
+            </div>
+            <div class="nav-flexitems">
+                <ul class="nav-ul">
+                    <li class="nav-item"><a href="{% url "inicio" %}" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="{% url "inicio_catalogo" %}" class="nav-link">Tienda</a></li>
+                    <li class="nav-item"><a href="{% url "nosotros" %}" class="nav-link">Nosotros</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ubicacion</a></li>
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url "iniciar_sesion" %}" class="nav-link nav-link-login">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="div-icons">
+                <div class="div-buscador-desplegable">
+                    <form method="GET" action="{% url "inicio_catalogo" %}" id="form-buscador-header">
+                        <input type="text" name="buscar" id="input-buscador-header" placeholder="Buscar">
+                        <img src="{% static "img/search.png" %}" alt="Buscar" class="img-icon-menu" id="icono-lupa-header">
+                    </form>
+                </div>
+                {% if user.is_authenticated %}
+                    <a href="{% url "ver_carrito" %}"><img src="{% static "img/shopping-cart.png" %}" alt="Carrito" class="img-icon-menu"></a>
+                    <a href="{% url "cerrar_sesion" %}"><img src="{% static "img/logout.png" %}" alt="Logout" class=" img-icon-menu img-logout"></a>
+                    {% if user.rol == 'admin'%}
+                        <a href="{% url "listar_usuarios" %}"><img src="{% static "img/tools.png" %}" alt="Logout" class=" img-icon-menu img-tools"></a>
+                    {% endif %}
+                    {% if user.rol == 'vendedor' %}
+                        <a href="{% url "panel_gestion" %}"><img src="{% static "img/tools.png" %}" alt="Logout" class=" img-icon-menu img-tools"></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if user.is_authenticated %}
+                <div class="div-perfil-usuario">
+                    <p class="nombre-usuario-perfil">• {{ request.user.username }}</p>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+    {% endblock %}
+    <main>
+        {% block contenido %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div class="div-main-footer">
+            <div class="div-textos-footer">
+                <h2 class="titulo-footer">Club Olympic</h2>
+                <p class="visita-redes-footer">Visita nuestras redes sociales</p>
+            </div>
+            <div class="div-redes-sociales-footer">
+                <a href="https://www.facebook.com/ClubOlympicCbba/" target="_blank" rel="noopener noreferrer" class="link-red-social">
+                    <img src="{% static 'img/facebook.png' %}" alt="Facebook" class="red-social-img">
+                </a>          
+                <a href="https://www.instagram.com/clubolympicoficial/" target="_blank" rel="noopener noreferrer" class="link-red-social">
+                    <img src="{% static 'img/instagram.png' %}" alt="Instagram" class="red-social-img">
+                </a>            
+                <a href="https://www.tiktok.com/@clubolympicoficial" target="_blank" rel="noopener noreferrer" class="link-red-social">
+                    <img src="{% static 'img/tiktok.png' %}" alt="Tiktok" class="red-social-img">
+                </a>
+            </div>
+            <div class="separador"></div>
+            <div class="div-extra-links-footer">
+                <div class="div-copyright">
+                    <p class="copyright-texto">Copyright © 2026 Olympic. All rights reserved.</p>
+                </div>
+                <div class="div-extras">
+                    <ul class="unordered-extra-links">
+                        <li class="li-extra-link"><a href="https://www.google.com/maps/place/Club+Olympic/@-17.3845708,-66.1626278,18.46z/data=!4m6!3m5!1s0x93e3740cf8ac5767:0xce7fd2f6cc1b192a!8m2!3d-17.3838249!4d-66.1626267!16s%2Fg%2F1wbrywjq?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" class="extra-link" target="_blank">Ubicación</a></li>
+                        <li class="li-extra-link"><a href="templates/terminos_condiciones.html" class="extra-link">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+            </div>
+    </footer>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const lupa = document.getElementById('icono-lupa-header');
+        const inputBuscador = document.getElementById('input-buscador-header');
+        const formBuscador = document.getElementById('form-buscador-header');
+
+        lupa.addEventListener('click', function() {
+            if(inputBuscador.classList.contains('mostrar-buscador') && inputBuscador.value.trim() !== '') {
+                formBuscador.submit();
+            }
+            else {
+                inputBuscador.classList.toggle('mostrar-buscador');
+
+                if(inputBuscador.classList.contains('mostrar-buscador')) {
+                    inputBuscador.focus()
+                }
+            }
+        });
+
+        document.addEventListener('click', function(evento) {
+            if(!formBuscador.contains(evento.target)) {
+                inputBuscador.classList.remove('mostrar-buscador');
+            }
+        });
+    });
+</script>
+</html>

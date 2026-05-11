@@ -1,0 +1,178 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+.grid-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta-categoria {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-botones-edicion {
+    margin-top: 8px;
+}
+
+.div-botones-tarjeta {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.boton-tarjeta {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--color-botones);
+    padding: 5px 18px;
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+    transform: scale(1);
+    transition: background-color .2s, color .2s, transform .2s;
+}
+
+.boton-tarjeta:hover {
+    background-color: var(--color-hover-botones);
+    color: var(--color-textos);
+    transform: scale(1.05);
+}
+
+.titulo-crear-categoria {
+    font-size: 2.2em;
+    margin-top: 20px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 15px;
+}
+
+.form-crear-categoria {
+    width: 70%;
+    padding: 20px 25px;
+    margin: 20px auto 25px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.div-inputs-form {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+}
+
+.label-input {
+    width: 150px;
+    font-size: 1.1em;
+    text-align: right;
+    line-height: 1.2;
+}
+
+.input-contenedor{
+    width: 210px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #f42, #f667);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px #0001;
+}
+
+.input-contenedor-editar {
+    margin: 10px 0 18px 0;
+}
+
+div > input {
+    font-family: inherit;
+    font-size: 0.9em;
+    color: #000;
+    width: 200px;
+    height: 30px;
+    border: none;
+    outline: none;
+    caret-color: #f42;
+    background-color: #fff;
+    border-radius: 10px;
+    padding-left: 15px;
+    letter-spacing: 0.8px;
+}
+
+.div-boton {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.boton-crear-categoria {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--color-botones);
+    padding: 8px 18px;
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+    transform: scale(1);
+    transition: background-color .2s, color .2s, transform .2s;
+}
+
+.boton-crear-categoria:hover {
+    background-color: var(--color-hover-botones);
+    color: var(--color-textos);
+    transform: scale(1.05);
+}
+
+.div-botones-edicion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}

@@ -1,0 +1,45 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/edicion_usuarios.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-editar-usuarios">Editar Usuario: {{ usuario.username }}</h2>
+    <div class="form-editar-usuario">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Nombre de Usuario:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="username" value="{{ usuario.username }}" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Correo Electronico:</span></label>
+                <div class="input-contenedor">
+                    <input type="email" name="email" value="{{ usuario.email }}" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Rol en el sistema:</span></label>
+                <div class="input-contenedor">
+                    <select name="rol">
+                        <option value="admin" {% if usuario.rol == "admin" %}selected{% endif %}>Administrador</option>
+                        <option value="vendedor" {% if usuario.rol == "vendedor" %}selected{% endif %}>Vendedor</option>
+                        <option value="cliente" {% if usuario.rol == "cliente" %}selected{% endif %}>Cliente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div-botones">
+                <a href="{% url "listar_usuarios" %}" class="boton-form">Cancelar</a>
+                <button type="submit" class="boton-form">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

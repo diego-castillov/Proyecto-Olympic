@@ -1,0 +1,38 @@
+{% extends "base_panel.html" %} 
+{% load static %}
+
+
+{% block enlaces_extra %}
+    <li><a href="{% url "registrar_usuarios" %}" class="nav-link">Crear Usuario</a></li>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/panel_gestion_admin.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-lista-usuarios">LISTA DE USUARIOS</h2>
+        <p class="total-usuarios">Total de usuarios en sistema: {{ total_usuarios }}</p>
+        <hr>
+        <div class="grid-usuarios">
+            {% for usuario in usuarios_registrados %}
+                <article class="tarjeta-usuario">
+                    <h2><span>Nombre de Usuario:</span> {{ usuario.username }}</h2>
+                    <div><span>Email:</span> {{ usuario.email|default:"Sin correo registrado" }}</div>
+                    <div><span>Rol:</span> {{ usuario.rol|default:"Cliente" }}</div>
+                    <div class="div-botones-tarjeta">
+                        <a href="{% url "editar_usuarios" usuario.id %}" class="boton-tarjeta">Editar</a>
+                        <form method="POST" action="{% url "eliminar_usuarios" usuario.id %}" onsubmit="return confirm('¿Estás totalmente seguro de eliminar a este usuario? Esta acción ya no se puede deshacer.')">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-tarjeta">Eliminar</button>
+                        </form>
+                    </div>
+                </article>
+            {% empty %}
+                <div>
+                    <h2>No hay usuarios registrados aun. Vuelve mas tarde</h3>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/catalogo_productos.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-bienvenida-catalogo">
+        <h2 class="catalogo-titulo">Catálogo</h1>
+        <p class="parrafo-explora-catalogo">Explora todos nuestros productos</p>
+    </div>
+    <hr>
+    <div class="div-principal">
+        <div class="div-busqueda">
+            <form method="GET" action="{% url "inicio_catalogo" %}">
+                <div class="div-inputs-busqueda">
+                    <input type="text" name="buscar" placeholder="Buscar Producto" value="{{ request.GET.buscar }}" class="input-buscar">
+                    <button class="boton-buscar">Buscar</button>
+                    <a href="{% url "inicio_catalogo" %}" class="boton-x">X</a>
+                </div>
+            </form>
+        </div>
+        <div class="div-filtros">
+            <div class="linea-separador"></div>
+            <div class="div-form-filtros">
+                <form method="GET" action="{% url "inicio_catalogo" %}" class="form-filtros">
+                    {% if request.GET.buscar %}
+                        <input type="hidden" name="buscar" value="{{ request.GET.buscar }}">
+                    {% endif %}
+                    <div class="div-botones-filtros">
+                        <button type="submit" name="categoria" value="" class="boton-filtro {% if not request.GET.categoria %}filtro-activo{% endif %}">Todos</button>
+                        {% for cat in categorias %}
+                            <button type="submit" name="categoria" value="{{ cat.id_categoria }}" class="boton-filtro {% if request.GET.categoria == cat.id_categoria|stringformat:"i" %}filtro-activo{% endif %}">{{ cat.nombre }}</button>
+                        {% endfor %}
+                        <div class="linea-separador-vertical"></div>
+                        <a href="#" class="boton-mis-pedidos">Mis Pedidos</a>
+                    </div>
+                </form>
+            </div>
+            <div class="linea-separador"></div>
+        </div>
+        <div class="catalogo">
+            <div class="grid-productos">
+            {% for producto in productos %}
+                <article class="tarjeta-producto">
+                    <h2>{{ producto.nombre }}</h2>
+                    <p class="producto-info">{{ producto.descripcion }}</p>
+                    <p class="producto-info"><span>{{ producto.precio }} Bs.</span></p>
+                    <div class="info-stock">
+                        {% if producto.stock_total > 0 %}
+                            <p class="producto-info">Quedan {{ producto.stock_total }} unidades.</p>
+                            {% if producto.id_categoria.nombre == 'Indumentaria Deportiva' %}
+                                <div class="div-tallas-imgs">
+                                    <img src="{% static "img/letter-s.png" %}" alt="talla-s">
+                                    <img src="{% static "img/letter-m.png" %}" alt="talla-m">
+                                    <img src="{% static "img/letter-l.png" %}" alt="talla-l">
+                                    <img src="{% static "img/letter-xl.png" %}" alt="talla-xl" class="talla-xl">
+                                    <img src="{% static "img/cloth.png" %}" alt="ropa-icono" class="ropa-icono">
+                                </div>
+                            {% endif %}
+                            {% if producto.id_categoria.nombre == 'Calzados' %}
+                                <div class="div-tallas-imgs div-tallas-imgs-calzados">
+                                    <img src="{% static "img/38.png" %}" alt="talla-38" class="talla-calzado">
+                                    <img src="{% static "img/39.png" %}" alt="talla-39" class="talla-calzado">
+                                    <img src="{% static "img/40.png" %}" alt="talla-40" class="talla-calzado">
+                                    <img src="{% static "img/41.png" %}" alt="talla-40" class="talla-calzado">
+                                    <img src="{% static "img/shoe.png" %}" alt="calzado-icono" class="calzado-icono">
+                                </div>
+                            {% endif %}
+                            {% if producto.id_categoria.nombre == 'Accesorios' %}
+                                <div class="div-tallas-imgs div-tallas-imgs-no">
+                                    <img src="{% static "img/no-talla.png" %}" alt="talla-no" class="talla-no">
+                                    <img src="{% static "img/accesories.png" %}" alt="accesorio-icono" class="accesorio-icono">
+                                </div>
+                            {% endif %}
+                            {% if producto.id_categoria.nombre == 'Equipamiento de Entrenamiento' %}
+                                <div class="div-tallas-imgs div-tallas-imgs-no">
+                                    <img src="{% static "img/no-talla.png" %}" alt="talla-no" class="talla-no">
+                                    <img src="{% static "img/accesories.png" %}" alt="accesorio-icono" class="accesorio-icono">
+                                </div>
+                            {% endif %}
+                            <form method="POST" action="{% url 'agregar_carrito' producto.id_producto %}" class="form-agregar-carrito">
+                                {% csrf_token %}
+                                <div class="div-inputs-agregar-carrito">                                              
+                                    <select name="talla_id" class="select-talla" required style="margin-bottom: 10px; padding: 5px;">
+                                        <option value="" disabled selected>Selecciona una talla</option>
+                                        {% for stock in producto.stock_set.all %}
+                                            {% if stock.cantidad > 0 %}
+                                                <option value="{{ stock.id_talla.id_talla }}">
+                                                    {{ stock.id_talla.nombre_talla }} (Quedan {{ stock.cantidad }})
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>                                
+                                    <input type="number" name="cantidad" step="1" min="1" max="{{ producto.stock_total }}" value="1" class="input-cantidad">
+                                </div>
+                                <button type="submit" class="boton-agregar-carrito">Agregar al carrito</button>
+                            </form>
+                        {% else %}
+                            <p class="producto-info">No hay mas unidades para este producto.</p>
+                        {% endif %}
+                    </div>
+                </article>
+            {% empty %}
+                <div class="sin-criterio">
+                    <h3>No se encontraron productos que coincidan tu criterio de busqueda.</h3>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

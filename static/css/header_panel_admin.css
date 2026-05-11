@@ -1,0 +1,94 @@
+:root {
+    --color-textos: #eee;
+    --color-textos-titulo: #111;
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-header-gradiend-p1: #802c26;
+    --color-header-gradient-p2: #61211c;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.titulo-panel-olympic {
+    color: var(--color-textos);
+}
+
+.nav-header-admin {
+    padding: 18px;
+    background-image: linear-gradient(to bottom, var(--color-header-gradiend-p1), var(--color-header-gradient-p2));
+    box-shadow: 0 0 50px #000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.panel-olympic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-olympic {
+    width: 45px;
+    height: 45px;
+}
+
+.titulo-panel-olympic {
+    font: 1.2em;
+    letter-spacing: 1px;
+}
+
+.lista-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+ul > li {
+    list-style-type: none;
+}
+
+.nav-link {
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    color: var(--color-textos);
+    padding: 5px 12px;
+    transform: scale(1);
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.nav-link:hover {
+    color: var(--color-botones);
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+.boton-cerrar-sesion {
+    font-weight: bold;
+    color: var(--color-botones);
+    padding: 5px 18px;
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+}
+
+.boton-cerrar-sesion:hover {
+    background-color: var(--color-hover-botones);
+    color: var(--color-textos);
+}

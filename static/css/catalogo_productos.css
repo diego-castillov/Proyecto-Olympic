@@ -1,0 +1,301 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+span {
+    font-weight: bold;
+}
+
+.div-bienvenida-catalogo {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.catalogo-titulo {
+    font-size: 4.2em;
+    margin-bottom: 15px;
+}
+
+.parrafo-explora-catalogo {
+    font-size: 1.2em;
+}
+
+.div-principal {
+    padding: 10px;
+}
+
+.div-busqueda {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.div-inputs-busqueda {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.input-buscar {
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px #0005;
+    color: #111;
+    outline: none;
+    width: 320px; 
+    border-radius: 20px;
+    padding: 8px 15px 8px 45px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E"); 
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 25px 25px;
+}
+
+.boton-x, .boton-buscar, .boton-anadir-carrito {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--color-texto-botones);
+    background-color: var(--color-botones);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 5px #0005;
+}
+
+.boton-x {
+    font-size: 1em;
+    padding: 10px 16px;
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-buscar {
+    padding: 9px 12px;
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-buscar:hover, .boton-x:hover {
+    color: #111;
+    outline: solid var(--color-hover-botones) 2px;
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+.div-filtros {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.linea-separador {
+    width: 100%;
+    border-top: 1px solid #111;
+    margin: 0;
+}
+
+.linea-separador-vertical {
+    background-color: #111;
+    height: 25px;
+    width: 1px;
+    margin-left: 8px;
+}
+
+.linea-separador:first-child {
+    margin-top: 20px;
+}
+
+.div-form-filtros {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.form-filtros {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.div-botones-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;   
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.boton-filtro, .boton-mis-pedidos {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    padding: 6px 15px;
+    margin-left: 10px;
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: 10px;
+    outline: solid #fff 1px;
+    transform: scale(1);
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-filtro:hover, .boton-mis-pedidos:hover {
+    color: #111;
+    outline: solid var(--color-hover-botones) 2px;
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+.catalogo {
+    margin: 25px 0;
+}
+
+.grid-productos {
+    display: grid;
+    /* Esta linea se encarga de que la cuadricula se adapte sola */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta-producto {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+}
+
+article > h2 {
+    margin-bottom: 15px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.form-agregar-carrito {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.boton-agregar-carrito {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    padding: 6px 15px;
+    margin-left: 10px;
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: 10px;
+    outline: solid #fff 1px;
+    transform: scale(1);
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-agregar-carrito:hover {
+    color: #111;
+    outline: solid var(--color-hover-botones) 2px;
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+.producto-info {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.producto-info::before {
+    content: '• ';
+}
+
+.div-tallas-imgs {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    gap: 5px;
+}
+
+.talla-xl {
+    width: 27px;
+    height: 27px;
+    margin-left: 2px;
+}
+
+.div-tallas-imgs-calzados, .div-tallas-imgs-no {
+    margin-top: 8px;
+}
+
+.talla-calzado {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+}
+
+.talla-no {
+    width: 28px;
+    height: 28px;
+}
+
+.div-inputs-agregar-carrito {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+select {
+    background-color: #fff;
+    box-shadow: 0 0 20px #0005;
+    border: none;
+    border-radius: 10px;
+}
+
+.input-cantidad {
+    background-color: #fff;
+    height: 28px;
+    box-shadow: 0 0 20px #0005;
+    border: none;
+    border-radius: 10px;
+}
+
+.ropa-icono, .calzado-icono, .accesorio-icono {
+    width: 28px;
+    height: 28px;
+    margin-left: 5px;
+}
+
+.calzado-icono {
+    width: 32px;
+    height: 32px;
+}

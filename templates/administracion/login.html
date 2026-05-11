@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Club Olympic</title>
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="div-olympic-logo">
+        <a href="{% url "inicio" %}"><img src="{% static "img/olympic-logo4.png" %}" alt="Logo Olympic" class="img-logo"></a>
+    </div>
+    <div class="div-login">
+        <h2 class="iniciar-sesion-texto">Iniciar Sesión</h2>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <div class="div-form">
+            <form method="POST" class="form-inputs-login">
+                {% csrf_token %}
+                <label class="label-input">Usuario:</label><br>
+                <input type="text" name="username" class="input-login" required><br><br>
+                <label class="label-input">Contraseña:</label><br>
+                <input type="password" name="password" class="input-login" required><br><br>
+                <div class="div-botones-login">
+                    <button type="submit" class="boton-login">Entrar</button>
+                    <a href="{% url "inicio" %}" class="boton-login">Volver</a>
+                </div>
+            </form>
+        </div>
+        <div class="div-extra-links-login">
+            <a href="{% url "signup_cliente" %}" class="no-cuenta-link">¿No tienes una cuenta? Registrate</a>
+        </div>
+    </div>
+</body>
+</html>

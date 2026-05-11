@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div>
+    <h2>Resumen de Pedido #{{ pedido.id_pedido }}</h2>
+    <p>Fecha: {{ pedido.fecha|date:"d M Y, H:i" }}</p>
+    <p>Estado: {{ pedido.estado_pedido }}</p>
+    <hr>
+    <h3>Detalles de la compra</h3>
+    {% for detalle in detalles %}
+        <article>
+            <h2>Nombre: {{ detalle.id_producto.nombre }}</h2>
+            <p>Cantidad: {{ detalle.cantidad }}</p>
+            <p>Bs. {{ detalle.precio_unitario }}</p>
+            <p>Bs. {% widthratio detalle.cantidad 1 detalle.precio_unitario %}</p>
+        </article>
+    {% endfor %}
+    <hr>
+    <div>
+        <h3>Pago por QR</h3>
+        <p>Escanea el siguiente codigo para completar tu pago de los productos seleccionados.</p>
+        <div>
+            [Espacio para el QR]
+        </div>
+    </div>
+</div>
+{% endblock %}

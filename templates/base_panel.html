@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/header_panel_admin.css" %}">
+{% endblock %}
+
+{% block header %}
+<header>
+    <nav class="nav-header-admin">        
+        <div class="panel-olympic">
+            <img src="{% static "img/olympic-logo3.png" %}" alt="logo" class="logo-olympic">
+            <h2 class="titulo-panel-olympic">Olympic Admin</h2>
+        </div>
+        <ul class="lista-links">
+            <li><a href="{% url "inicio" %}" class="nav-link">Inicio</a></li>
+            <li><a href="{% url 'panel_gestion' %}" class="nav-link">Inventario</a></li>
+            {% if request.user.rol == 'admin'  %}
+                <li><a href="{% url 'listar_usuarios' %}" class="nav-link">Usuarios</a></li> 
+            {% endif %}           
+            {% block enlaces_extra %}{% endblock %}
+            <li><a href="{% url "cerrar_sesion" %}" class="nav-link boton-cerrar-sesion">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}

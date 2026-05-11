@@ -1,0 +1,189 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-textos: #eee;
+    --color-textos2: #000;
+    --primer-color: #cf242f;
+    --color-hover-botones: #e86465;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    color: var(--color-textos);
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+span {
+    font-weight: bold;
+}
+
+.div-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.div-seccion-bienvenida {
+    width: 100%;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.img-index {
+    width: 100%;
+    height: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.div-bienvenida-pagina {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.img-index2 {
+    width: 100%;
+    height: 600px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.texto {
+    font-size: 3.5em;
+    position: absolute;
+    z-index: 20;
+    top: 250px;
+    left: 300px;
+}
+
+.boton-comprar, .boton-ver-mas, .boton-conocer {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #fff;
+    padding: 7px 25px;
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: 20px;
+    outline: solid #fff 1px;
+    position: absolute;
+    top: 375px;
+    left: 570px;
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-comprar:hover, .boton-ver-mas:hover, .boton-conocer:hover {
+    color: #111;
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+    transform: scale(1.05);
+    background-color: #fffc;
+}
+
+.p-div2 {
+    font-size: 1.8em;
+    position: absolute;
+    top: 320px;
+    left: 380px;
+}
+
+.div-seccion-productos {
+    width: 100%;
+    min-height: 400px;
+    margin-top: 40px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.div-productos-volley, .div-productos-futbol {
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo-tarjeta {
+    font-size: 2.6em;
+    color: var(--color-textos2);
+    text-align: center;
+}
+
+.boton-ver-mas {
+    transform: scale(0.9);
+    position: static;
+}
+
+.boton-ver-mas:hover {
+    transform: scale(0.95);
+}
+
+.img-seccion-producto {
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.p-div3, .p-div4 {
+    font-size: 1.3em;
+    color: var(--color-textos2);
+}
+
+.div-seccion-conoce {
+    width: 100%;
+    min-height: 400px;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+}
+
+.img-seccion-conocer {
+    width: 400px;
+    height: 405px;
+}
+
+.div-textos-conocer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-conocer {
+    margin-top: 15px;
+    position: static;
+}
+
+.div-seccion-bienvenida, .div-bienvenida-pagina, .div-productos-volley, .div-productos-futbol, .div-seccion-conoce {
+    transform: scale(1);
+    transition: transform .2s;
+}
+
+.div-seccion-bienvenida:hover, .div-bienvenida-pagina:hover, .div-productos-volley:hover, .div-productos-futbol:hover, .div-seccion-conoce:hover {
+    transform: scale(1.02);
+}

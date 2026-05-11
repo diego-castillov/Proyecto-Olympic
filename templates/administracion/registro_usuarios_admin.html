@@ -1,0 +1,79 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/registro_usuarios_admin.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-panel">Panel de Administracion - Crear Nuevo Usuario</h2> 
+        {% comment %} <p>Bienvenido de nuevo, {{ request.user.username }} (Rol: {{ request.user.rol }})</p> {% endcomment %}
+        <hr>
+        {% if mensaje %}
+            <p style="color: green;">{{ mensaje }}</p>
+        {% endif %}
+        <div class="form-crear-usuario">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="titulo-form">
+                    <h2>Crear Nuevo Usuario</h2>
+                </div>
+                <hr>
+                {% comment %} <div class="separador"></div> {% endcomment %}
+                <div class="div-inputs-form">
+                    <div class="div-input">
+                    <label><span>Nombre de Usuario:</span></label>
+                    <div class="input-contenedor">
+                        {{ form.username }}
+                    </div>
+                    {% if form.username.errors %}
+                        <p>{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                    </div>
+                    <div class="div-input">
+                        <label><span>Correo Electronico:</span></label>
+                        <div class="input-contenedor">
+                            {{ form.email }}
+                        </div>
+                        {% if form.email.errors %}
+                            <p>{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="div-input">
+                        <label><span>Rol:</span></label>
+                        <div class="input-contenedor">
+                            {{ form.rol }}
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <label><span>Contraseña:</span></label>
+                        <div class="input-contenedor">
+                            {{ form.password1 }}
+                        </div>
+                        {% if form.password1.errors %}
+                            <p>{{ form.password1.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="div-input">
+                        <label><span>Confirmar Contraseña:</span></label>
+                        <div class="input-contenedor">
+                            {{ form.password2 }}
+                        </div>
+                        {% if form.password2.errors %}
+                            <p>{{ form.password2.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="boton-registrar">Registrar Usuario</button>
+                </div>
+            </form>
+            <div class="div-info-inputs">
+                <p>- Tu nombre de usuario solo puede contener letras, digitos y simbolos como @ + - _ .</p>
+                <p>- Tu contraseña no puede ser similar a tu informacion personal, debe contener al menos 8 caracteres y no puede ser enteramente numerica.</p>
+                <p>- Ingresa la misma contraseña que antes para la verificacion.</p>
+            </div>
+        </div>
+{% endblock %}

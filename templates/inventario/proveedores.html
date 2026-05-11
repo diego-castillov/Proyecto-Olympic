@@ -1,0 +1,104 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+    <li><a href="{% url "crear_proveedor" %}" class="nav-link">Proveedores</a></li>
+    <li><a href="{% url "categorias" %}" class="nav-link">Categorias</a></li>
+    <li><a href="{% url "panel_pedidos" %}" class="nav-link">Pedidos</a></li>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/proveedores.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-crear-proveedor">Crear Proveedor</h2>
+    <div class="form-crear-proveedor">
+        <form method="POST" action="{% url "crear_proveedor" %}">
+            {% csrf_token %}
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Nombre Empresa:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="nombre" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Telefono:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="telefono" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Email:</span></label>
+                <div class="input-contenedor">
+                    <input type="email" name="email" required>
+                </div>
+            </div>
+            <div class="div-boton">
+                <button type="submit" class="boton-crear-proveedor">Crear Proveedor</button>
+            </div>
+        </form>
+    </div>
+    <div class="grid-proveedores">
+        {% for proveedor in proveedores %}
+            <article class="tarjeta-proveedor">
+                <h2>{{ proveedor.nombre_empresa }}</h2>
+                <div id="datos-{{ proveedor.id_proveedor }}" class="tarjeta-proveedor-datos">
+                    <p><span>Telefono:</span> {{ proveedor.telefono }}</p>
+                    <p><span>Email:</span> {{ proveedor.email }}</p>
+                    <div class="div-botones-tarjeta">
+                        <button type="button" onclick="toggleEdicion('{{ proveedor.id_proveedor }}')" class="boton-tarjeta">Editar</button>
+                        <form method="POST" action="{% url 'eliminar_proveedor' proveedor.id_proveedor %}" onsubmit="return confirm('¿Estás totalmente seguro de eliminar a este proveedor? Esta acción ya no se puede deshacer.')">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-tarjeta">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="edicion-{{ proveedor.id_proveedor }}" class="tarjeta-proveedor-edicion" style="display: none;">
+                    <form method="POST" action="{% url 'editar_proveedor' proveedor.id_proveedor %}" onsubmit="return confirm('¿Estás totalmente seguro de editar a este proveedor?')">
+                        {% csrf_token %}
+                        <div class="div-inputs-form">
+                            <label class="label-input"><span>Nombre Empresa:</span></label>
+                            <div class="input-contenedor">
+                                <input type="text" name="nombre_editar" value="{{ proveedor.nombre_empresa }}" required>
+                            </div>
+                        </div>
+                        <div class="div-inputs-form">
+                            <label class="label-input"><span>Telefono:</span></label>
+                            <div class="input-contenedor">
+                                <input type="text" name="telefono_editar" value="{{ proveedor.telefono }}" required>
+                            </div>
+                        </div>
+                        <div class="div-inputs-form">
+                            <label class="label-input"><span>Email:</span></label>
+                            <div class="input-contenedor">
+                                <input type="email" name="email_editar" value="{{ proveedor.email }}" required>
+                            </div>
+                        </div>
+                        <div class="div-botones">
+                            <button type="submit" class="boton-tarjeta">Guardar</button>
+                            <button type="button" class="boton-tarjeta" onclick="toggleEdicion('{{ proveedor.id_proveedor }}')">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleEdicion(idProveedor) {
+            var divDatos = document.getElementById('datos-' + idProveedor);
+            var divEdicion = document.getElementById('edicion-' + idProveedor);
+
+            if (divEdicion.style.display === 'none') {
+                divEdicion.style.display = 'block';
+                divDatos.style.display = 'none';
+            } 
+            else {
+                divEdicion.style.display = 'none';
+                divDatos.style.display = 'flex';
+            }
+        }
+    </script>
+{% endblock %}

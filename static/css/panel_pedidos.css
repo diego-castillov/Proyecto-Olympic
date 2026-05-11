@@ -1,0 +1,80 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+.titulo-panel-pedidos {
+    font-size: 2.2em;
+    margin-top: 20px;
+}
+
+.div-botones-estados {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.grid-pedidos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta-pedido {
+    padding: 15px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-size: 1.1em;
+}
+
+.form-boton {
+    margin-top: 8px;
+}
+
+.boton-cambiar-estado, .boton-filtro-estado {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--color-botones);
+    padding: 8px 18px;
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    outline: solid var(--color-hover-botones) 1px;
+    transform: scale(1);
+    transition: background-color .2s, color .2s, transform .2s;
+}
+
+.boton-cambiar-estado:hover, .boton-filtro-estado:hover {
+    background-color: var(--color-hover-botones);
+    color: var(--color-textos);
+    transform: scale(1.05);
+}

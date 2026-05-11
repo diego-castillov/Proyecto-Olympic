@@ -1,0 +1,62 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/crear_productos.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-registro-producto">Registrar Nuevo Producto</h2>
+    <div class="form-crear-producto">
+        <form method='POST'>
+            {% csrf_token %}
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Nombre:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="nuevo_nombre" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Descripcion:</span></label>
+                <div class="input-contenedor-text-area">
+                    <textarea name="nueva_descripcion" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Precio:</span></label>
+                <div class="input-contenedor">
+                    <input type="number" name="nuevo_precio" steps="0.10" required>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Categoria:</span></label>
+                    <div class="input-contenedor">
+                        <select name="nueva_categoria" required>
+                            <option value="">Selecciona una Categoria</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Proveedor:</span></label>
+                <div class="input-contenedor">
+                    <select name="nuevo_proveedor" required>
+                        <option value="">Selecciona un Proveedor</option>
+                        {% for proveedor in proveedores %}
+                            <option value="{{ proveedor.id_proveedor }}">{{ proveedor.nombre_empresa }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="div-boton">
+                <button type="submit" class="boton-crear">Crear</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

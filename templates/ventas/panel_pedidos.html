@@ -1,0 +1,46 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+    <li><a href="{% url "crear_proveedor" %}" class="nav-link">Proveedores</a></li>
+    <li><a href="{% url "categorias" %}" class="nav-link">Categorias</a></li>
+    <li><a href="{% url "panel_pedidos" %}" class="nav-link">Pedidos</a></li>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/panel_pedidos.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-panel-pedidos">Panel Gestión de Pedidos</h2>
+    <div class="div-botones-estados">
+        <div><a href="{% url "panel_pedidos" %}" class="boton-filtro-estado">Todos</a></div>
+        <div><a href="{% url "panel_pedidos" %}?estado=Pendiente" class="boton-filtro-estado">Pendientes</a></div>
+        <div><a href="{% url "panel_pedidos" %}?estado=Entregados" class="boton-filtro-estado">Entregados</a></div>
+    </div>
+    <div class="grid-pedidos">
+        {% for pedido in pedidos %}
+            <article class="tarjeta-pedido">
+                <label><span>ID Pedido:</span> {{ pedido.id_pedido }}</label>
+                <label><span>Fecha:</span> {{ pedido.fecha|date:"d M Y, H:i" }}</label>
+                <label><span>Nombre Completo:</span> {{ pedido.id_cliente.nombre }} {{ pedido.id_cliente.apellido }}</label>
+                <label><span>Total Pedido:</span> {{ pedido.total_pedido }} Bs.</label>
+                <label><span>Estado:</span> {{ pedido.estado_pedido|default:"Pendiente" }}</label>
+                <form method="POST" action="{% url "panel_pedidos" %}" class="form-boton">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_pedido" value={{ pedido.id_pedido }}>
+                    {% if pedido.estado_pedido == 'Pendiente' or not pedido.estado_pedido %}
+                        <input type="hidden" name="nuevo_estado" value="Entregado">
+                        <button type="submit" class="boton-cambiar-estado">Marcar como entregado</button>
+                    {% else %}
+                        <input type="hidden" name="nuevo_estado" value="Pendiente">
+                        <button type="submit" class="boton-cambiar-estado">Volver a pendiente</button>
+                    {% endif %}
+                </form>
+            </article>
+        {% empty %}
+            <p>😔 No se encontraron pedidos con este estado.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

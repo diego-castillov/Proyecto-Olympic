@@ -1,0 +1,72 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+    <li><a href="{% url "crear_proveedor" %}" class="nav-link">Proveedores</a></li>
+    <li><a href="{% url "categorias" %}" class="nav-link">Categorias</a></li>
+    <li><a href="{% url "panel_pedidos" %}" class="nav-link">Pedidos</a></li>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/categorias.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-crear-categoria">Crear Categoria (Producto)</h2>
+    <div class="form-crear-categoria">
+        <form method="POST" action="{% url "crear_categoria" %}">
+            {% csrf_token %}
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Nombre:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="nombre" required>
+                </div>
+            </div>
+            <div class="div-boton">
+                <button type="submit" class="boton-crear-categoria">Crear Categoria</button>
+            </div>
+        </form>
+    </div>
+    <div class="grid-categorias">
+        {% for categoria in categorias %}
+            <article class="tarjeta-categoria">
+                <h2 id="titulo-{{ categoria.id_categoria }}">{{ categoria.nombre }}</h2>
+                <form  id="form-editar-{{ categoria.id_categoria }}" method="POST" action="{% url "editar_categoria" categoria.id_categoria %}" style="display: none; margin-bottom: 10px;">
+                        {% csrf_token %}
+                        <div class="input-contenedor input-contenedor-editar">
+                            <input type="text" name="nuevo_nombre" value="{{ categoria.nombre }}" required>
+                        </div>
+                        <div class="div-botones-edicion">
+                            <button type="submit" class="boton-tarjeta">Guardar</button>
+                            <button type="button" onclick="toggleEdicion('{{ categoria.id_categoria }}')" class="boton-tarjeta">Cancelar</button>
+                        </div>
+                </form>
+                <div class="div-botones-tarjeta" id="botones-accion-{{ categoria.id_categoria }}">
+                    <button type="button" onclick="toggleEdicion('{{ categoria.id_categoria }}')" class="boton-tarjeta">Editar</button>
+                    <form action="{% url "eliminar_categoria" categoria.id_categoria %}" onsubmit="return confirm('¿Estás totalmente seguro de eliminar a esta categoria? Esta acción ya no se puede deshacer.')">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-tarjeta">Eliminar</button>
+                    </form>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleEdicion(idCategoria) {
+            var titulo = document.getElementById('titulo-' + idCategoria);
+            var formEditar = document.getElementById('form-editar-' + idCategoria);
+            var botonesAccion = document.getElementById('botones-accion-' + idCategoria);
+
+            if (formEditar.style.display === 'none') {
+                formEditar.style.display = 'block';
+                botonesAccion.style.display = 'none';
+            }
+            else {
+                formEditar.style.display = 'none';
+                botonesAccion.style.display = 'flex';
+            }
+        }
+    </script>
+{% endblock %}

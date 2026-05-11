@@ -1,0 +1,85 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/edicion_productos.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-editar-producto">Editar Producto: {{ producto.nombre }}</h2>
+    <div class="form-editar-producto">
+        <form method="POST" class="form-edicion">
+            {% csrf_token %}   
+            <div class="div-subtitulo">
+                <h3 class="texto-datos-principales">Datos Principales</h3>
+            </div> 
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Nombre:</span></label>
+                <div class="input-contenedor">
+                    <input type="text" name="nombre" value="{{ producto.nombre }}" required>
+                </div>
+            </div>   
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Descripción:</span></label>
+                <div class="input-contenedor-text-area">
+                    <textarea name="descripcion" rows="3">{{ producto.descripcion }}</textarea>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Precio:</span></label>
+                <div class="input-contenedor">
+                    <input type="number" name="precio" step="0.10" value="{{ producto.precio }}" required>
+                </div>
+            </div> 
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Categoría:</span></label>
+                <div class="input-contenedor">
+                    <select name="categoria" required>
+                        {% for cat in categorias %}
+                            <option value="{{ cat.id_categoria }}" {% if cat.id_categoria == producto.id_categoria.id_categoria %}selected{% endif %}>
+                                {{ cat.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="div-inputs-form">
+                <label class="label-input"><span>Proveedores (Mantén presionada la tecla Ctrl para seleccionar varios):</span></label>
+                <div class="input-contenedor contenedor-proveedores">
+                    <select name="proveedores" multiple required>
+                        {% for prov in proveedores %}
+                            <option value="{{ prov.id_proveedor }}" {% if prov.id_proveedor in proveedores_actuales %}selected{% endif %}>
+                                {{ prov.nombre_empresa }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>                  
+            <hr>
+            <div class="div-textos-tallas">
+                <h3 class="texto-desglose-tallas">Desglose de Inventario por Tallas</h3>
+                <p class="consejo-tallas-editar">(Deja en 0 las tallas que no tengan stock para este producto)</p> 
+            </div>       
+            {% for talla in datos_tallas %}
+                <div class="div-inputs-talla">
+                    <label class="label-input">Talla {{ talla.nombre }}:</label>
+                    <div class="input-contenedor">
+                        <input type="number" name="talla_{{ talla.id }}" value="{{ talla.cantidad }}" min="0" required>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="div-recomendaciones">
+                <p class="texto-recomendacion">Talla Única (E) corresponde a productos con categoría de Equipamiento de Entrenamiento.</p>
+                <p class="texto-recomendacion">Talla Única (A) corresponde a productos con categoría de Accesorios.</p>
+            </div>
+            <div class="div-botones">
+                <button type="submit" class="boton-guardar-cambios">Guardar Todos los Cambios</button>
+                <a href="{% url 'panel_gestion' %}" class="boton-guardar-cambios">Cancelar y Volver</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

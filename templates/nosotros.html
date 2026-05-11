@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/nosotros.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-nosotros-principal">
+        <h2 class="titulo-principal">CLUB OLYMPIC</h2>
+        <p class="texto-nosotros">El Club Olympic, es una entidad deportiva de formación, que busca la competición y la masificación del voley en Bolivia, con sede central en Cochabamba.</p>
+        <div class="slider-box">
+            <ul>
+                <li>
+                    <img src="{% static "img/olympic-slide1.jpg" %}" alt="Slide 1">
+                    <div class="texto-slide">
+                        <h2>Liderazgo y Excelencia</h2>
+                        <p class="parrafo-slide">Con sede central en la ciudad de Cochabamba, el Club Olympic se consolida como la entidad referente en la formación deportiva de alto rendimiento. Impulsamos el talento desde sus bases hasta la alta competencia nacional e internacional.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static "img/olympic-slide2.jpg" %}" alt="Slide 1">
+                    <div class="texto-slide">
+                        <h2>Formando Campeones, Impulsando Sueños</h2>
+                        <p class="parrafo-slide">Creemos en el poder transformador del deporte. Somos una escuela de vida dedicada a la formación integral de atletas en Bolivia. Desde el corazón de Cochabamba, trabajamos cada día para que el voleibol llegue a cada rincón del país, promoviendo la competencia sana, la disciplina y el orgullo de pertenecer a la familia olímpica más grande de la región.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static "img/olympic-slide3.jpg" %}" alt="Slide 1">
+                    <div class="texto-slide">
+                        <h2>El Corazón del Voleibol en el Centro de Bolivia</h2>
+                        <p class="parrafo-slide">Como entidad pionera en formación deportiva, nuestro compromiso es llevar el nombre de Bolivia a lo más alto a través de la masificación del deporte.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="{% static "img/olympic-slide4.jpg" %}" alt="Slide 1">
+                    <div class="texto-slide">
+                        <h2>Pasión por el Voleibol</h2>
+                        <p class="parrafo-slide">Dedicados a la formación, competencia y masificación del voleibol en toda Bolivia. Formamos atletas, construimos futuro.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <h2 class="titulo-visita-redes">VISITA NUESTRAS REDES SOCIALES O CONTÁCTANOS</h2>
+        <div class="div-redes-principal">
+            <div class="div-redes-sociales">
+                <a href="https://www.facebook.com/ClubOlympicCbba/" target="_blank" rel="noopener noreferrer" class="link-red-social"><img src="{% static "img/facebook-negro.png" %}" alt="Faceboook">Faceebook</a>          
+                <a href="https://www.instagram.com/clubolympicoficial/" target="_blank" rel="noopener noreferrer" class="link-red-social"><img src="{% static 'img/instagram-negro.png' %}" alt="Instagram" class="red-social-img">Instagram</a>            
+                <a href="https://www.tiktok.com/@clubolympicoficial" target="_blank" rel="noopener noreferrer" class="link-red-social"><img src="{% static 'img/tiktok-negro.png' %}" alt="Tiktok" class="red-social-img">Tiktok</a>
+                <a href="tel:+59175990059" target="_blank" rel="noopener noreferrer" class="link-red-social"><img src="{% static 'img/telefono-negro.png' %}" alt="Tiktok" class="red-social-img">75990059</a>
+                <a href="mailto:clubolympiccbba@gmail.com" target="_blank" rel="noopener noreferrer" class="link-red-social"><img src="{% static 'img/email-negro.png' %}" alt="Tiktok" class="red-social-img">clubolympiccbba@gmail.com</a>
+            </div>
+        </div>
+        <h2 class="titulo-texto-final">¡Sé parte de nuestra historia!</h2>
+            <div class="div-parrafo-final">
+                <p class="parrafo-final">En el Club Olympic, no solo formamos atletas; construimos una familia unida por el esfuerzo, la disciplina y el amor al deporte. Te invitamos a compartir nuestra pasión, a vestir nuestros colores con orgullo y a seguir impulsando el voleibol boliviano hacia lo más alto. <span>¡Nos vemos en la cancha!</span></p>
+            </div>
+    </div>
+{% endblock %}

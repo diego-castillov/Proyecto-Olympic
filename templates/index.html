@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-principal">
+        <div class="div-seccion-bienvenida">
+            <img src="{% static "img/index-primera-imagen.png" %}" alt="img-index" class="img-index">
+        </div>
+        <div class="div-bienvenida-pagina">
+            <h2 class="texto">COMPRA NUESTROS PRODUCTOS</h2>
+            <p class="p-div2">Conoce más sobre nuestros últimos productos</p>
+            <a href="{% url "inicio_catalogo" %}" class="boton-comprar">Comprar</a>
+            <p>CLUB OLYMPIC</p>
+            <img src="{% static "img/index-segunda-imagen.png" %}" alt="img-index" class="img-index2">
+        </div>
+        <div class="div-seccion-productos">
+            <div class="div-productos-volley">
+                <h2 class="titulo-tarjeta">Volley</h2>
+                <p class="p-div3">¡Representa de la mejor manera a tu equipo de volley!</p>
+                <a href="{% url "inicio_catalogo" %}" class="boton-ver-mas">Ver más</a>
+                <img src="{% static "img/volley-ball.png" %}" alt="img-volley-tarjeta" class="img-seccion-producto">
+            </div>
+            <div class="div-productos-futbol">
+                <h2 class="titulo-tarjeta">Fútbol</h2>
+                <p class="p-div3">Gana tus partidos con los mejores uniformes</p>
+                <a href="{% url "inicio_catalogo" %}" class="boton-ver-mas">Ver más</a>
+                <img src="{% static "img/soccer.png" %}" alt="img-soccer-tarjeta" class="img-seccion-producto">
+            </div>
+        </div>
+        <div class="div-seccion-conoce">
+            <img src="{% static "img/index-septima-imagen.png" %}" alt="img-conocer-tarjeta" class="img-seccion-conocer">
+            <div class="div-textos-conocer">
+                <h2 class="titulo-tarjeta">Conoce más sobre nosotros</h2>
+                <p class="p-div4">Ven y se parte de la familia Olympic</p>
+                <a href="#" class="boton-conocer">Conocer</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+.div-titulo-carrito {
+    margin-top: 20px;
+}
+
+.titulo-carrito {
+    font-size: 2em;
+}
+
+article {
+    margin-bottom: 20px;
+}
+
+.tarjeta-producto-carrito {
+    padding: 20px 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+}
+
+.titulo-producto {
+    font-size: 1.8em;
+}
+
+.info-producto, .texto-total-pagar {
+    font-size: 1.1em;
+    margin-top: 5px;
+}
+
+.div-total-pagar {
+    padding: 12px 18px;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+}
+
+.boton-vaciar-carrito {
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 15px;
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: 10px;
+    outline: solid #fff 1px;
+    transform: scale(1);
+    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+}
+
+.boton-vaciar-carrito:hover {
+    color: #111;
+    outline: solid var(--color-hover-botones) 2px;
+    transform: scale(1.10);
+    background-color: #fff;
+}
