@@ -1,6 +1,6 @@
 body {
     font-family: "Barlow Condensed", sans-serif;
-    background-color: #111;
+    background-color: #eee;
     font-size: 18px;
     margin: 0;
     padding: 20px 0; /* Un poco de padding vertical para que no pegue en los bordes */
@@ -12,7 +12,7 @@ body {
 }
 
 :root {
-    --color-textos-titulo: #eee;
+    --color-textos-titulo: #000;
     --color-botones: #cf242f;
     --color-hover-botones: #e86465;
     --background-color2: #e13d48;
@@ -47,8 +47,8 @@ a:hover {
 }
 
 .img-logo {
-    width: auto;
-    height: 70px;
+    width: 250px;
+    height: auto;
     transform: scale(1);
     transition: transform .2s;
 }
@@ -60,11 +60,11 @@ a:hover {
 .div-signup {
     width: 90%;
     max-width: 450px;
-    background-color: var(--background-color2);
-    padding: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 20px #0003;
     outline: 2px solid #eee;
     border-radius: 18px;
-    box-shadow: 0 0 35px #fff4;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,6 +100,11 @@ a:hover {
     border: none;
     border-radius: 5px;
     outline: none;
+    background-color: #e5effb;
+}
+
+.input-signup:focus {
+    outline: solid 2px #000;
 }
 
 .input-archivo-oculto {

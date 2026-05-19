@@ -1,6 +1,6 @@
 body {
     font-family: "Barlow Condensed", sans-serif;
-    background-color: #111;
+    background-color: #eee;
     /* background-image: url(https://lh3.googleusercontent.com/gps-cs-s/APNQkAGwupFTiGZaKn82XbC_Li94zz6GaSSX8ElSkb4nEe6KlsrZsz4Duqh9WyZOTZ7GxBhtIfargHqRnZaoQ2A9gp_c-cILYxAylqJ_c18D3UJdMCXh6KrC08ZNCWL0kTkLz8Splzefma3FGf0b=s1360-w1360-h1020-rw); */
     font-size: 18px;
     margin: 0;
@@ -13,7 +13,7 @@ body {
 }
 
 :root {
-    --color-textos-titulo: #eee;
+    --color-textos-titulo: #000;
     --color-botones: #cf242f;
     --color-hover-botones: #e86465;
     --background-color2: #e13d48;
@@ -46,8 +46,8 @@ a {
 }
 
 .img-logo {
-    width: auto;
-    height: 70px;
+    width: 300px;
+    height: auto;
     transform: scale(1);
     transition: transform .2s;
 }
@@ -58,11 +58,11 @@ a {
 
 .div-login {
     width: 30%;
-    background-color: var(--background-color2);
+    background-color: #fff;
     padding: 20px;
+    box-shadow: 0 0 20px #0003;
     outline: 2px solid #eee;
     border-radius: 18px;
-    box-shadow: 0 0 35px #fff4;
     display: flex;
     flex-direction: column;
     justify-content: center;

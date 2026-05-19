@@ -405,3 +405,16 @@ footer {
 }
 
 /* ==========  BARRA DE BUSQUEDA ENDS HERE ========== */
+
+/* ==========  EXTRAS STARTS HERE ========== */
+
+.p-mensaje {
+    color: #fff;
+    background-color: #571515e7;
+    border: solid 2px #cc6666;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+/* ==========  EXTRAS ENDS HERE ========== */

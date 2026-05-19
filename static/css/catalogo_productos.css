@@ -345,15 +345,6 @@ select {
     height: 32px;
 }
 
-.p-mensaje {
-    color: #fff;
-    background-color: #155724e7;
-    border: solid 2px #6c6;
-    border-radius: 10px;
-    padding: 8px;
-    margin-top: 10px;
-}
-
 .div-botones {
     display: flex;
     flex-direction: row;

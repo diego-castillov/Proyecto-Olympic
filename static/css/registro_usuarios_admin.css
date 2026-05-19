@@ -146,12 +146,3 @@ div > form {
     color: var(--color-textos);
     transform: scale(1.05);
 }
-
-.p-mensaje {
-    color: #fff;
-    background-color: #155724e7;
-    border: solid 2px #6c6;
-    border-radius: 10px;
-    padding: 8px;
-    margin-top: 10px;
-}
