@@ -27,7 +27,7 @@
                     <li class="nav-item"><a href="{% url "inicio" %}" class="nav-link">Inicio</a></li>
                     <li class="nav-item"><a href="{% url "inicio_catalogo" %}" class="nav-link">Tienda</a></li>
                     <li class="nav-item"><a href="{% url "nosotros" %}" class="nav-link">Nosotros</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Ubicacion</a></li>
+                    <li class="nav-item"><a href="{% url "ubicacion" %}" class="nav-link">Ubicacion</a></li>
                     {% if not user.is_authenticated %}
                         <li class="nav-item"><a href="{% url "iniciar_sesion" %}" class="nav-link nav-link-login">Login</a></li>
                     {% endif %}
@@ -53,7 +53,20 @@
             </div>
             {% if user.is_authenticated %}
                 <div class="div-perfil-usuario">
-                    <p class="nombre-usuario-perfil">• {{ request.user.username }}</p>
+                    {% if request.user.perfil_cliente.foto_perfil %}
+                        <img src="{{ request.user.perfil_cliente.foto_perfil.url }}" alt="FotoDePerfil" class="img-foto-perfil">
+                    {% else %}
+                        <img src="{% static "img/default-profile.png" %}" alt="FotoDePerfil" class="img-foto-perfil">
+                    {% endif %}
+                    {% if request.user.rol == 'admin' %}
+                        <a href="{% url "listar_usuarios" %}" class="nombre-usuario-perfil">• {{ request.user.username }}</a>
+                    {% endif %}
+                    {% if request.user.rol == 'cliente' %}
+                        <a href="{% url 'edicion_perfil_usuario' request.user.perfil_cliente.id_cliente %}" class="nombre-usuario-perfil">• {{ request.user.username }}</a>
+                    {% endif %}
+                    {% if request.user.rol == 'vendedor' %}
+                        <a href="{% url "inicio" %}" onclick="alert('No puedes editar el perfil ahora mismo. Si tienes alguna consulta comunicate con el administrador del sistema.'); return false;" class="nombre-usuario-perfil">• {{ request.user.username }}</a>
+                    {% endif %}
                 </div>
             {% endif %}
         </nav>
@@ -88,7 +101,7 @@
                 <div class="div-extras">
                     <ul class="unordered-extra-links">
                         <li class="li-extra-link"><a href="https://www.google.com/maps/place/Club+Olympic/@-17.3845708,-66.1626278,18.46z/data=!4m6!3m5!1s0x93e3740cf8ac5767:0xce7fd2f6cc1b192a!8m2!3d-17.3838249!4d-66.1626267!16s%2Fg%2F1wbrywjq?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" class="extra-link" target="_blank">Ubicación</a></li>
-                        <li class="li-extra-link"><a href="templates/terminos_condiciones.html" class="extra-link">Términos y condiciones</a></li>
+                        <li class="li-extra-link"><a href="{% url "terminos_condiciones" %}" class="extra-link">Términos y condiciones</a></li>
                     </ul>
                 </div>
             </div>
@@ -101,19 +114,56 @@
         const inputBuscador = document.getElementById('input-buscador-header');
         const formBuscador = document.getElementById('form-buscador-header');
 
+        // 1. Diccionario de atajos
+        const paginasDelSistema = {
+            'inicio': '{% url "inicio" %}',
+            'home': '{% url "inicio" %}',
+            'tienda': '{% url "inicio_catalogo" %}',
+            'productos': '{% url "inicio_catalogo" %}',
+            'catalogo': '{% url "inicio_catalogo" %}',
+            'nosotros': '{% url "nosotros" %}',
+            'club': '{% url "nosotros" %}',
+            'ubicacion': '{% url "ubicacion" %}',
+            'mapa': '{% url "ubicacion" %}',
+            'carrito': '{% url "ver_carrito" %}',
+            'compras': '{% url "ver_carrito" %}'
+        }
+
+        // 2. Funcion para procesar que hacer con el texto
+        function procesarBusqueda(evento) {
+            const textoOriginal = inputBuscador.value.trim().toLowerCase();
+
+            // Quitar acentos
+            const terminoNormalizado = textoOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            // Verificando si el termino esta en el diccionario
+            if(paginasDelSistema[terminoNormalizado]) {
+                if(evento) evento.preventDefault();
+                // Redirigir a la pagina correspondiente
+                window.location.href = paginasDelSistema[terminoNormalizado];
+            } else if(!evento) {
+                formBuscador.submit();
+            }
+        }
+
+        // 3. Si el usuario presiona la tecla "Enter" en el input
+        formBuscador.addEventListener('submit', function(evento) {
+            procesarBusqueda(evento);
+        })
+
         lupa.addEventListener('click', function() {
             if(inputBuscador.classList.contains('mostrar-buscador') && inputBuscador.value.trim() !== '') {
-                formBuscador.submit();
+                procesarBusqueda()
             }
             else {
                 inputBuscador.classList.toggle('mostrar-buscador');
-
                 if(inputBuscador.classList.contains('mostrar-buscador')) {
                     inputBuscador.focus()
                 }
             }
         });
 
+        // Cerrar el buscador al hacer click afuera
         document.addEventListener('click', function(evento) {
             if(!formBuscador.contains(evento.target)) {
                 inputBuscador.classList.remove('mostrar-buscador');

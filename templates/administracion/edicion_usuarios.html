@@ -11,6 +11,11 @@
 
 {% block contenido %}
     <h2 class="titulo-editar-usuarios">Editar Usuario: {{ usuario.username }}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="p-mensaje">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
     <div class="form-editar-usuario">
         <form method="POST">
             {% csrf_token %}

@@ -1,0 +1,121 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+.div-titulos-textos-principal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.ubicacion-titulo {
+    font-size: 4.2em;
+    margin-top: 15px;
+}
+
+.texto-abre {
+    font-size: 1.2em;
+}
+
+.div-mapa-ubicacion {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+iframe {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #0003;
+    margin-top: 25px;
+}
+
+.div-extras-info {
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+}
+
+.div-encuentranos {
+    /* background-color: #e86465; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subtitulo-encuentranos, .subtitulo-horarios, .subtitulo-ayuda {
+    font-size: 1.8em;
+}
+
+.subtitulo-encuentranos {
+    margin-bottom: 8px;
+}
+
+.texto-ubicacion, .texto-ayuda {
+    font-size: 1em;
+    margin-top: 3px;
+}
+
+.div-telefono {
+    margin-top: 8px;
+}
+
+.link-telefono {
+    color: #48e;
+    letter-spacing: 0.7px;
+    margin-top: 12px;
+}
+
+.div-horarios {
+    /* background-color: #48e; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.li-horario {
+    font-size: 1em;
+    margin-bottom: 3px;
+    list-style-type: none;
+    white-space: pre-wrap;
+}
+
+.div-ayuda {
+    /* background-color: #cf242f; */
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.texto-ayuda {
+    text-align: justify;
+}

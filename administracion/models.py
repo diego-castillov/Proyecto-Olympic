@@ -28,6 +28,7 @@ class Cliente(models.Model):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     direccion_envio = models.TextField(blank=True, null=True) # NUEVO
     fecha_registro = models.DateTimeField(blank=True, null=True) # NUEVO
+    foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True)
 
     class Meta:
         managed = False

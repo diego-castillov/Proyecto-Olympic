@@ -47,3 +47,7 @@ class DetallePedido(models.Model):
     class Meta:
         managed = False
         db_table = 'detalle_pedido'
+
+    @property
+    def subtotal(self):
+        return self.cantidad * self.precio_unitario

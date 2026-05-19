@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -27,4 +29,11 @@ urlpatterns = [
     path('inventario/', include('inventario.urls')),
     path('ventas/', include('ventas.urls')),
     path('nosotros/', TemplateView.as_view(template_name="nosotros.html"), name='nosotros'),
+    path('ubicacion', TemplateView.as_view(template_name="ubicacion.html"), name='ubicacion'),
+    path('terminos-condiciones/', TemplateView.as_view(template_name="terminos_condiciones.html"), name='terminos_condiciones'),
+    # path('api/verificar-pago/<int:id_pedido>/', views.verificar_estado_pago, name='verificar_estado_pago'),
+    # path('admin-oculto/banco/', views.panel_simulador_banco, name='panel_simulador_banco'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

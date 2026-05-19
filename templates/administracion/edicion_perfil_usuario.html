@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/edicion_perfil_usuario.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-editar-perfil">EDITAR PERFIL</h2>
+    <div class="form-editar-perfil">
+        <form method="POST" action="{% url "edicion_perfil_usuario" cliente.id_cliente%}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="div-edicion">
+                <div class="div-datos">
+                    <div class="div-subtitulo">
+                        <h3 class="texto-datos-principales">Datos Principales y Foto de Perfil</h3>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Nombre:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="nombre" value="{{ cliente.nombre}}" required>
+                        </div>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Apellido:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="apellido" value="{{ cliente.apellido }}" required>
+                        </div>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Nombre de Usuario:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="username" value="{{ usuario.username }}" required>
+                        </div>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Email:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="email" value="{{ cliente.email }}" required>
+                        </div>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Teléfono:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="telefono" value="{{ cliente.telefono }}" required>
+                        </div>
+                    </div>
+                    <div class="div-inputs-form">
+                        <label class="label-input"><span>Dirección de Envío:</span></label>
+                        <div class="input-contenedor">
+                            <input type="text" name="direccion" value="{{ cliente.direccion_envio }}" required>
+                        </div>
+                    </div>
+                    <div class="div-botones">
+                        <button type="submit" class="boton-guardar-cambios">Guardar</button>
+                        <a href="{% url 'inicio' %}" class="boton-cancelar">Volver</a>
+                    </div>
+                </div>
+                <div class="div-foto-perfil">
+                    {% if request.user.perfil_cliente.foto_perfil %}
+                        <img src="{{ request.user.perfil_cliente.foto_perfil.url }}" id="previsualizacion" alt="FotoDePerfil" class="foto-perfil">
+                    {% else %}
+                        <img src="{% static "img/default-profile.png" %}" alt="FotoDePerfil" class="foto-perfil">
+                    {% endif %}
+                    <div class="div-inputs-form">
+                        <input type="file" id="foto_de_perfil" name="foto_de_perfil" accept="image/*" class="input-archivo-oculto">
+                        <label for="foto_de_perfil" class="boton-foto-perfil">Seleccionar Imagen</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const inputImagen = document.getElementById('foto_de_perfil');
+        const imgPrevisualizacion = document.getElementById('previsualizacion');
+
+        inputImagen.addEventListener('change', function() {
+            const archivo = this.files[0]; // Obtener el archivo seleccionado
+
+            if(archivo) {
+                imgPrevisualizacion.src = URL.createObjectURL(archivo);
+            }
+        });
+    </script>
+{% endblock %}

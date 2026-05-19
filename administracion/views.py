@@ -26,9 +26,9 @@ def iniciar_sesion(request):
 
             # Logica de redireccion segun el rol
             if user.rol == 'admin':
-                return redirect('listar_usuarios')
+                return redirect('inicio')
             elif user.rol == 'vendedor':
-                return redirect('panel_gestion')
+                return redirect('inicio')
             else:
                 return redirect('inicio')
         else:
@@ -45,6 +45,11 @@ def registrar_usuario_admin(request):
     mensaje = None
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
+
+        username_ingresado = request.POST.get('username')
+
+        if Usuario.objects.filter(username=username_ingresado).exists():
+            messages.error(request, "Ese usuario ya existe. Elige otro.")
 
         if form.is_valid():
             form.save()
@@ -112,7 +117,7 @@ def editar_usuarios(request, id_usuario):
         usuario_a_editar.save()
         messages.success(request, "Usuario actualizado correctamente")
 
-        return redirect("registrar_usuarios")
+        return redirect("listar_usuarios")
     
     contexto = {
         'usuario': usuario_a_editar
@@ -129,6 +134,7 @@ def signup_cliente(request):
         email_ingresado = request.POST.get('email')
         telefono_ingresado = request.POST.get('telefono')
         contrasena_ingresada = request.POST.get('password')
+        foto_ingresada = request.FILES.get('foto_de_perfil')
 
         if Usuario.objects.filter(username=username_ingresado).exists():
             messages.error(request, "Ese nombre de usuario ya esta en uso. Elige otro.")
@@ -147,10 +153,46 @@ def signup_cliente(request):
             apellido = apellido_ingresado,
             email = email_ingresado,
             telefono = telefono_ingresado,
-            fecha_registro = timezone.now()
+            fecha_registro = timezone.now(),
+            foto_perfil = foto_ingresada
         )
 
         messages.success(request, "Tu cuenta ha sido creada con exito! Por favor inicia sesion")
 
         return redirect('iniciar_sesion')
     return render(request, 'administracion/signup.html')
+
+# VISTA 8: EDITAR PERFIL CLIENTES
+@login_required
+def edicion_perfil_usuario(request, id_cliente):
+    if request.user.rol not in ['admin', 'vendedor', 'cliente']:
+        return redirect('iniciar_sesion')
+    
+    cliente_a_editar = Cliente.objects.get(pk=id_cliente)
+    usuario_a_editar = cliente_a_editar.usuario
+
+    if request.user.rol == 'cliente' and request.user.id != usuario_a_editar.id:
+        return redirect('inicio')
+
+    if request.method == 'POST':
+        cliente_a_editar.nombre = request.POST.get('nombre')
+        cliente_a_editar.apellido = request.POST.get('apellido')
+        usuario_a_editar.username = request.POST.get('username')
+        cliente_a_editar.email = request.POST.get('email')
+        cliente_a_editar.telefono = request.POST.get('telefono')
+        cliente_a_editar.direccion_envio = request.POST.get('direccion')
+
+        if request.FILES.get('foto_de_perfil'):
+            cliente_a_editar.foto_perfil = request.FILES.get('foto_de_perfil')
+
+        cliente_a_editar.save()
+        usuario_a_editar.save()
+
+        return redirect('inicio')
+    
+    contexto = {
+        'cliente': cliente_a_editar,
+        'usuario': usuario_a_editar
+    }
+    
+    return render(request, 'administracion/edicion_perfil_usuario.html', contexto)

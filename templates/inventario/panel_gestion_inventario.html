@@ -18,7 +18,11 @@
     <p>Usuario actual: {{ request.user.username }} | Rol: {{ request.user.rol }}</p>
     <hr>
     <a href="{% url "crear_producto" %}" class="boton-agregar-producto">Agregar nuevo producto</a>
-    <br><br>
+    {% if messages %}
+            {% for message in messages %}
+                <p class="p-mensaje">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
     <div class="grid-lista-productos">
         {% for producto in productos %}
             <article class="tarjeta-producto">
@@ -42,16 +46,21 @@
             </article>
         {% endfor %}
     </div>
-    <hr>
-    <div>
-        <h2>Alertas de Inventario (Stock Bajo)</h2>
-        {% for alerta in productos_bajo_stock %}
-        <div>
-            <p>¡Atencion! Solo quedan {{ alerta.cantidad }} unidades de {{ alerta.id_producto.nombre }} (Talla: {{ alerta.id_talla.nombre_talla }})</p>
+    <div class="linea-separador"></div>
+    <h2 class="titulo-alertas-reportes">ALERTAS Y REPORTES</h2>
+    <div class="div-alertas-a">
+        <h2 class="titulo-alertas">Alertas de Inventario (Stock Suficiente)</h2>
+        {% for alerta in productos_alto_stock%}
+        <div class="div-alertas-alto">
+            <p class="texto-alerta">Quedan {{ alerta.stock_total }} unidades de {{ alerta.nombre }}, stock suficiente.</p>
         </div>
-        {% empty %}
-        <div>
-            <p>Todo en orden. Ningun producto tiene stock bajo</p>
+        {% endfor %}
+    </div>
+    <div class="div-alertas-b">
+        <h2 class="titulo-alertas">Alertas de Inventario (Stock Bajo)</h2>
+        {% for alerta in productos_bajo_stock%}
+        <div class="div-alertas-bajo">
+            <p class="texto-alerta">¡Atención! Solo quedan {{ alerta.stock_total }} unidades de {{ alerta.nombre }}.</p>
         </div>
         {% endfor %}
     </div>

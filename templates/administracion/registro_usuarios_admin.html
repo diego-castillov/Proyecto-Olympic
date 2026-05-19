@@ -11,10 +11,10 @@
 
 {% block contenido %}
     <h2 class="titulo-panel">Panel de Administracion - Crear Nuevo Usuario</h2> 
-        {% comment %} <p>Bienvenido de nuevo, {{ request.user.username }} (Rol: {{ request.user.rol }})</p> {% endcomment %}
-        <hr>
-        {% if mensaje %}
-            <p style="color: green;">{{ mensaje }}</p>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="p-mensaje">{{ message }}</p>
+            {% endfor %}
         {% endif %}
         <div class="form-crear-usuario">
             <form method="POST">

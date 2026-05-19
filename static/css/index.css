@@ -74,7 +74,9 @@ span {
     font-weight: bold;
     font-size: 1.2em;
     color: #fff;
-    padding: 7px 25px;
+    padding: 12px 25px;
+    line-height: 1;    
+    cursor: pointer;
     background-color: var(--color-botones);
     border: none;
     border-radius: 20px;
@@ -107,19 +109,19 @@ span {
     display: flex; 
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
 }
 
 .div-productos-volley, .div-productos-futbol {
-    width: 50%;
-    height: auto;
+    flex: 1;
     border-radius: 20px;
     padding: 15px 20px;
     background-color: #fff;
     box-shadow: 0 0 20px #0003;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
@@ -149,16 +151,22 @@ span {
 .p-div3, .p-div4 {
     font-size: 1.3em;
     color: var(--color-textos2);
+    text-align: center;
+    text-wrap: balance;
 }
 
 .div-seccion-conoce {
     width: 100%;
     min-height: 400px;
-    margin: 20px 0;
+    margin-top: 10px;
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 0 20px #0003;
     display: flex;
+}
+
+.div-seccion-conoce-mapa {
+    margin-bottom: 25px;
 }
 
 .img-seccion-conocer {
@@ -186,4 +194,16 @@ span {
 
 .div-seccion-bienvenida:hover, .div-bienvenida-pagina:hover, .div-productos-volley:hover, .div-productos-futbol:hover, .div-seccion-conoce:hover {
     transform: scale(1.02);
+}
+
+.div-mapa {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-mapa {
+    width: 450px;
+    height: 400px;
 }

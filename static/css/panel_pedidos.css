@@ -31,7 +31,27 @@ span {
     margin: 25px 0;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 8px;
+}
+
+.img-banco {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    box-sizing: content-box;
+    padding: 5px;
+    border-radius: 0;
+    outline: 0;
+    transform: scale(1);
+    transition: background-color .2s, border-radius .2s, transform .2s, outline .2s;
+}
+
+.img-banco:hover {
+    background-color: #e656;
+    border-radius: 10px;
+    transform: scale(1.05);
+    outline: 1px solid #cf242f;
 }
 
 .grid-pedidos {
@@ -77,4 +97,15 @@ label {
     background-color: var(--color-hover-botones);
     color: var(--color-textos);
     transform: scale(1.05);
+}
+
+.detalle-producto-pedido::before {
+    content: '• ';
+}
+
+.separador-linea {
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    margin: 8px 0;
 }

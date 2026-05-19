@@ -1,10 +1,9 @@
 body {
     font-family: "Barlow Condensed", sans-serif;
     background-color: #111;
-    /* background-image: url(https://lh3.googleusercontent.com/gps-cs-s/APNQkAGwupFTiGZaKn82XbC_Li94zz6GaSSX8ElSkb4nEe6KlsrZsz4Duqh9WyZOTZ7GxBhtIfargHqRnZaoQ2A9gp_c-cILYxAylqJ_c18D3UJdMCXh6KrC08ZNCWL0kTkLz8Splzefma3FGf0b=s1360-w1360-h1020-rw); */
     font-size: 18px;
     margin: 0;
-    padding: 0;
+    padding: 20px 0; /* Un poco de padding vertical para que no pegue en los bordes */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,18 +30,20 @@ h1, h2, h3, p, a, label {
 
 h2 {
     font-size: 2em;
-    letter-spacing: 0.6px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 .div-olympic-logo {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 20px; 
 }
 
 .img-logo {
@@ -56,89 +57,84 @@ a {
     transform: scale(1.1);
 }
 
-.div-login {
-    width: 30%;
+.div-signup {
+    width: 90%;
+    max-width: 450px;
     background-color: var(--background-color2);
-    padding: 20px;
+    padding: 30px;
     outline: 2px solid #eee;
     border-radius: 18px;
     box-shadow: 0 0 35px #fff4;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
-.iniciar-sesion-texto {
+.form-signup {
+    width: 100%;
+}
+
+.input-grupo {
+    width: 100%;
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-.div-form {
-    width: 80%;
+.input-grupo-crear {
+    text-align: center;
+    margin-top: 25px;
 }
 
-.label-input{
-    font-size: 1.4em;
+.label-input {
+    font-size: 1.2em;
     font-weight: bold;
     letter-spacing: 0.7px;
+    margin-bottom: 5px;
 }
 
-.input-login {
+.input-signup {
     width: 100%;
     font-size: 0.9em;
-    padding: 10px 5px;
-    margin-top: 5px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
+    outline: none;
 }
 
-.div-botones-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+.input-archivo-oculto {
+    display: none;
 }
 
-.boton-login {
+.boton-foto-perfil, .boton-crear-cuenta {
     display: inline-block;
     font-family: inherit;
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
     color: #fff;
-    padding: 6px 30px;
+    padding: 8px 30px;
     background-color: var(--color-botones);
     border: none;
     border-radius: 10px;
     outline: solid #fff 1px;
-    transform: scale(1);
-    transition: border-radius .2s, outline .2s, transform .2s, background-color .2s;
+    cursor: pointer;
+    transition: transform .2s, background-color .2s, color .2s, outline .2s;
 }
 
-.boton-login:hover {
+.boton-foto-perfil {
+    margin-top: 5px;
+    align-self: flex-start;
+}
+
+.boton-foto-perfil:hover, .boton-crear-cuenta:hover {
     color: #111;
     outline: solid var(--color-hover-botones) 2px;
-    transform: scale(1.10);
+    transform: scale(1.05);
     background-color: #fff;
 }
 
-.div-extra-links-login {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-}
-
-.no-cuenta-link {
+.link-login {
+    margin-top: 20px;
     font-size: 1.1em;
-}
-
-.no-cuenta-link:hover {
-    text-decoration: underline;
-}
-
-.p-error {
-    color: var(--color-textos-titulo);
 }
