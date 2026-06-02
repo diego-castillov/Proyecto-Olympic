@@ -18,11 +18,17 @@ def panel_gestion(request):
     productos = Producto.objects.annotate(
         stock_total = Sum('stock__cantidad')
     ).order_by('precio')
+    # Alerta por tallas
     alertas_stock = Stock.objects.select_related('id_producto', 'id_talla').filter(cantidad__lt=20)
+    # Alerta general
+    alertas_stock_bajo = Producto.objects.annotate(stock_total = Sum('stock__cantidad')).filter(stock_total__lt=15)
+    alertas_alto_stock = Producto.objects.annotate(stock_total = Sum('stock__cantidad')).filter(stock_total__gt=15)
 
     contexto = {
         'productos' : productos,
-        'productos_bajo_stock' : alertas_stock
+        'productos_bajo_stock_talla' : alertas_stock,
+        'productos_bajo_stock' : alertas_stock_bajo,
+        'productos_alto_stock' : alertas_alto_stock
     }
 
     return render(request, 'inventario/panel_gestion_inventario.html', contexto)
@@ -39,6 +45,10 @@ def crear_producto(request):
         precio_ingresado = request.POST.get('nuevo_precio')
         categoria_id = request.POST.get('nueva_categoria')
         proveedor_id = request.POST.get('nuevo_proveedor')
+
+        if Producto.objects.filter(nombre=nombre_ingresado).exists():
+            messages.error(request, "Ese producto ya se encuentra registrado. Elige otro.")
+            return redirect('crear_producto')
 
         # Buscando los objetos reales en la base de datos usando esos IDs
         categoria_obj = get_object_or_404(Categoria, pk=categoria_id)
@@ -135,6 +145,7 @@ def editar_producto(request, id_producto):
             else:
                 Stock.objects.filter(id_producto=producto_a_editar, id_talla=talla).delete()
         
+        messages.success(request, "¡El producto ha sido actualizado con éxito!")
         return redirect('panel_gestion')
     
     categorias = Categoria.objects.all()
@@ -183,7 +194,7 @@ def crear_proveedor(request):
 
         messages.success(request, "Proveedor creado con exito!")
 
-        return redirect('panel_gestion')
+        return redirect('crear_proveedor')
     
     proveedores = Proveedor.objects.all().order_by('nombre_empresa')
 
@@ -203,7 +214,9 @@ def eliminar_proveedor(request, id_proveedor):
         proveedor_a_borrar = Proveedor.objects.get(pk=id_proveedor)
         proveedor_a_borrar.delete()
 
-    return redirect('panel_gestion')
+        messages.success(request, "Proveedor eliminado con exito!")
+
+    return redirect('crear_proveedor')
 
 # VISTA 6: PANEL DE GESTION (EDITAR PROVEEDORES)
 @login_required
@@ -219,8 +232,9 @@ def editar_proveedor(request, id_proveedor):
         proveedor_a_editar.email = request.POST.get('email_editar')
 
         proveedor_a_editar.save()
+        messages.success(request, "Proveedor actualizado con exito!")
     
-    return redirect('panel_gestion')
+    return redirect('crear_proveedor')
 
 # VISTA 7: PANEL DE GESTION (CATEGORIAS)
 @login_required
@@ -260,6 +274,8 @@ def eliminar_categoria(request, id_categoria):
         categoria_a_eliminar = Categoria.objects.get(pk=id_categoria)
         categoria_a_eliminar.delete()
 
+        messages.success(request, "Categoria eliminada con exito!")
+
     return redirect('categorias')
 
 # VISTA 9: PANEL DE GESTION (EDITAR CATEGORIAS)
@@ -273,5 +289,7 @@ def editar_categoria(request, id_categoria):
     if request.method == 'POST':
         categoria_a_editar.nombre = request.POST.get('nuevo_nombre')
         categoria_a_editar.save()
+
+        messages.success(request, "Categoria actualizada con exito!")
     
     return redirect('categorias')

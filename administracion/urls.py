@@ -9,4 +9,5 @@ urlpatterns = [
     path('panel-gestion/eliminar_usuario/<int:id_usuario>/', views.eliminar_usuarios, name="eliminar_usuarios"),
     path('panel-gestion/editar_usuario/<int:id_usuario>/', views.editar_usuarios, name='editar_usuarios'),
     path('signup/', views.signup_cliente, name='signup_cliente'),
+    path('perfil/<int:id_cliente>/', views.edicion_perfil_usuario, name='edicion_perfil_usuario'),
 ]

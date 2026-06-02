@@ -92,3 +92,12 @@ ul > li {
     background-color: var(--color-hover-botones);
     color: var(--color-textos);
 }
+
+.p-mensaje {
+    color: #fff;
+    background-color: #571515e7;
+    border: solid 2px #cc6666;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 10px;
+}

@@ -19,16 +19,16 @@
         </div>
         <div class="div-seccion-productos">
             <div class="div-productos-volley">
-                <h2 class="titulo-tarjeta">Volley</h2>
-                <p class="p-div3">¡Representa de la mejor manera a tu equipo de volley!</p>
-                <a href="{% url "inicio_catalogo" %}" class="boton-ver-mas">Ver más</a>
+                <h2 class="titulo-tarjeta">Conjuntos Olympic</h2>
+                <p class="p-div3">¡Representa de la mejor manera a tu equipo de volley con nuestros conjuntos!</p>
+                <a href="http://127.0.0.1:8000/ventas/productos/?categoria=1" class="boton-ver-mas">Ver más</a>
                 <img src="{% static "img/volley-ball.png" %}" alt="img-volley-tarjeta" class="img-seccion-producto">
             </div>
             <div class="div-productos-futbol">
-                <h2 class="titulo-tarjeta">Fútbol</h2>
-                <p class="p-div3">Gana tus partidos con los mejores uniformes</p>
-                <a href="{% url "inicio_catalogo" %}" class="boton-ver-mas">Ver más</a>
-                <img src="{% static "img/soccer.png" %}" alt="img-soccer-tarjeta" class="img-seccion-producto">
+                <h2 class="titulo-tarjeta">Tenis y Zapatos Deportivos</h2>
+                <p class="p-div3">Gana tus partidos con los mejores tenis y zapatos deportivos</p>
+                <a href="http://127.0.0.1:8000/ventas/productos/?categoria=2" class="boton-ver-mas">Ver más</a>
+                <img src="{% static "img/shoes.png" %}" alt="img-soccer-tarjeta" class="img-seccion-producto">
             </div>
         </div>
         <div class="div-seccion-conoce">
@@ -36,7 +36,17 @@
             <div class="div-textos-conocer">
                 <h2 class="titulo-tarjeta">Conoce más sobre nosotros</h2>
                 <p class="p-div4">Ven y se parte de la familia Olympic</p>
-                <a href="#" class="boton-conocer">Conocer</a>
+                <a href="{% url "nosotros" %}" class="boton-conocer">Conocer más</a>
+            </div>
+        </div>
+        <div class="div-seccion-conoce div-seccion-conoce-mapa">
+            <div class="div-textos-conocer">
+                <h2 class="titulo-tarjeta">Ven a nuestras instalaciones</h2>
+                <p class="p-div4">¡Únete a nosotros!</p>
+                <a href="{% url "ubicacion" %}" class="boton-conocer">Conocer más</a>
+            </div>
+            <div class="div-mapa">
+                <img src="{% static "img/index-octava-imagen.png" %}" alt="img-conocer-tarjeta" class="img-mapa">
             </div>
         </div>
     </div>

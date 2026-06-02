@@ -33,12 +33,39 @@
                         {% for cat in categorias %}
                             <button type="submit" name="categoria" value="{{ cat.id_categoria }}" class="boton-filtro {% if request.GET.categoria == cat.id_categoria|stringformat:"i" %}filtro-activo{% endif %}">{{ cat.nombre }}</button>
                         {% endfor %}
-                        <div class="linea-separador-vertical"></div>
-                        <a href="#" class="boton-mis-pedidos">Mis Pedidos</a>
+                        {% if user.is_authenticated %}
+                            <div class="linea-separador-vertical"></div>
+                            <button type="button" onclick="toggleVerPedidos()" class="boton-mis-pedidos">Mis Pedidos</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
             <div class="linea-separador"></div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="p-mensaje">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <div class="grid-mis-pedidos" id="div-grid-mis-pedidos" style="display: none;">
+            {% for pedido in pedidos %}
+                <article class="tarjeta-pedido">
+                    <label><span>ID Pedido:</span> {{ pedido.id_pedido }}</label>
+                    <label><span>Nombre Completo:</span> {{ pedido.id_cliente.nombre }} {{ pedido.id_cliente.apellido }}</label>
+                    <label><span>Fecha:</span> {{ pedido.fecha|date:"d M Y, H:i" }}</label>
+                    <label><span>Total Pedido:</span> {{ pedido.total_pedido }} Bs.</label>
+                    {% if pedido.estado_pedido == 'Pendiente' or not pedido.estado_pedido %}
+                        <label><span>Estado:</span><span class="span-pendiente">{{ pedido.estado_pedido|default:"Pendiente" }}</span></label>
+                    {% else %}
+                        <label><span>Estado:</span><span class="span-entregado">{{ pedido.estado_pedido }}</span></label>
+                    {% endif %}
+                </article>
+            {% empty %}
+                <div class="div-no-pedidos">
+                    <p class="texto-no-pedidos">😔 No se encontraron pedidos asociados para tu usuario. Vuelve cuando hayas realizado al menos un pedido.</p>
+                </div>
+            {% endfor %}           
+            <button type="button" onclick="toggleVerPedidos()" class="boton-cancelar-mis-pedidos">Cancelar</button>
         </div>
         <div class="catalogo">
             <div class="grid-productos">
@@ -80,23 +107,25 @@
                                     <img src="{% static "img/accesories.png" %}" alt="accesorio-icono" class="accesorio-icono">
                                 </div>
                             {% endif %}
-                            <form method="POST" action="{% url 'agregar_carrito' producto.id_producto %}" class="form-agregar-carrito">
-                                {% csrf_token %}
-                                <div class="div-inputs-agregar-carrito">                                              
-                                    <select name="talla_id" class="select-talla" required style="margin-bottom: 10px; padding: 5px;">
-                                        <option value="" disabled selected>Selecciona una talla</option>
-                                        {% for stock in producto.stock_set.all %}
-                                            {% if stock.cantidad > 0 %}
-                                                <option value="{{ stock.id_talla.id_talla }}">
-                                                    {{ stock.id_talla.nombre_talla }} (Quedan {{ stock.cantidad }})
-                                                </option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>                                
-                                    <input type="number" name="cantidad" step="1" min="1" max="{{ producto.stock_total }}" value="1" class="input-cantidad">
-                                </div>
-                                <button type="submit" class="boton-agregar-carrito">Agregar al carrito</button>
-                            </form>
+                            <div class="div-botones">
+                                <form method="POST" action="{% url 'agregar_carrito' producto.id_producto %}" class="form-agregar-carrito">
+                                    {% csrf_token %}
+                                    <div class="div-inputs-agregar-carrito">                                              
+                                        <select name="talla_id" class="select-talla" required style="margin-bottom: 10px; padding: 5px;">
+                                            <option value="" disabled selected>Selecciona una talla</option>
+                                            {% for stock in producto.stock_set.all %}
+                                                {% if stock.cantidad > 0 %}
+                                                    <option value="{{ stock.id_talla.id_talla }}">
+                                                        {{ stock.id_talla.nombre_talla }} (Quedan {{ stock.cantidad }})
+                                                    </option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>                                
+                                        <input type="number" name="cantidad" step="1" min="1" max="{{ producto.stock_total }}" value="1" class="input-cantidad">
+                                    </div>
+                                    <button type="submit" class="boton-agregar-carrito">Agregar al carrito</button>
+                                </form>
+                            </div>
                         {% else %}
                             <p class="producto-info">No hay mas unidades para este producto.</p>
                         {% endif %}
@@ -110,4 +139,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleVerPedidos() {
+            var flexPedidos = document.getElementById('div-grid-mis-pedidos');
+            
+            if (flexPedidos.style.display === 'none') {
+                flexPedidos.style.display = 'flex';
+            }
+            else {
+                flexPedidos.style.display = 'none';
+            }
+        }
+    </script>
 {% endblock %}

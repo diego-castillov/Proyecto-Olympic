@@ -1,27 +1,80 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/recibo.css" %}">
+{% endblock %}
 
 {% block contenido %}
-<div>
-    <h2>Resumen de Pedido #{{ pedido.id_pedido }}</h2>
-    <p>Fecha: {{ pedido.fecha|date:"d M Y, H:i" }}</p>
-    <p>Estado: {{ pedido.estado_pedido }}</p>
-    <hr>
-    <h3>Detalles de la compra</h3>
-    {% for detalle in detalles %}
-        <article>
-            <h2>Nombre: {{ detalle.id_producto.nombre }}</h2>
-            <p>Cantidad: {{ detalle.cantidad }}</p>
-            <p>Bs. {{ detalle.precio_unitario }}</p>
-            <p>Bs. {% widthratio detalle.cantidad 1 detalle.precio_unitario %}</p>
-        </article>
-    {% endfor %}
-    <hr>
-    <div>
-        <h3>Pago por QR</h3>
-        <p>Escanea el siguiente codigo para completar tu pago de los productos seleccionados.</p>
+    <div class="div-principal">
+        <h2 class="subtitulo-recibo">Resumen de Pedido #{{ pedido.id_pedido }}</h2>
+        <p>Fecha: {{ pedido.fecha|date:"d M Y, H:i" }}</p>
+        <p>Estado: {{ pedido.estado_pedido }}</p>
+        <div class="separador-linea"></div>
+        <h3 class="subtitulo-recibo">Detalles de la compra</h3>
+        {% for detalle in detalles %}
+            <article>
+                <p class="info-detalle"><span>Nombre: </span>{{ detalle.id_producto.nombre }}<p>
+                <p class="info-detalle"><span>Cantidad: </span>{{ detalle.cantidad }}</p>
+                <p class="info-detalle"><span>Precio Unitario: </span>Bs. {{ detalle.precio_unitario }}</p>
+                <p class="info-detalle"><span>Subtotal: </span>Bs. {% widthratio detalle.cantidad 1 detalle.precio_unitario %}</p>
+                <div class="separador-linea"></div>
+            </article>
+        {% endfor %}
         <div>
-            [Espacio para el QR]
+            {% if pedido.estado_pago == 'Pendiente' %}
+                <div>
+                    <h3 class="subtitulo-recibo">Pago por QR</h3>
+                    <p>Escanea el siguiente código para completar tu pago de los productos seleccionados.</p>
+                    <div id="contenedor-qr" class="contenedor-qr">
+                        <img src="{% static 'img/COD-QR.jpeg' %}" alt="QR de Pago" style="width: 250px; border: 2px solid #ccc; border-radius: 10px;">
+                        <p class="texto-esperando-confirmacion">Esperando confirmación del banco...</p>
+                    </div>            
+                    <div id="mensaje-exito" class="div-pago-exitoso div-pago-transaccion" style="display: none; color: green; margin-top: 20px;">
+                        <h3 class="texto-exito">Espera un momento...</h3>
+                        <p class="texto-exito">Tu transacción esta siendo aprobada.</p>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Asegúrate de que esta variable sea el ID real de tu pedido en esta plantilla
+                        const idPedido = "{{ pedido.id_pedido }}"; 
+                        const urlVerificacion = `/ventas/api/verificar-pago/${idPedido}/`;
+                    
+                        const intervaloRadar = setInterval(function() {
+                            fetch(urlVerificacion)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.estado_pago === 'Pagado') {
+                                        clearInterval(intervaloRadar); // Detenemos el reloj
+                                    
+                                        // Ocultamos el QR y mostramos el éxito
+                                        document.getElementById('contenedor-qr').style.display = 'none';
+                                        document.getElementById('mensaje-exito').style.display = 'block';
+                                    
+                                        // Opcional: recargar la página para que el estado "Pendiente" de arriba cambie a "Pagado"
+                                        setTimeout(() => {
+                                            window.location.reload(); 
+                                        }, 3000);
+                                    }
+                                })
+                                .catch(error => console.error("Error consultando el pago:", error));
+                        }, 3000); 
+                    });
+                </script>
+            {% else %}
+            <div class="div-pago-exitoso">
+                <h3 class="texto-exito">¡Pago Exitoso!</h3>
+                <p class="texto-exito">Tu transacción ha sido aprobada. ¡Gracias por tu compra en el Club Olympic!</p>
+            </div>
+            {% endif %}
         </div>
-    </div>
-</div>
+    </div>   
+    <div class="div-botones">
+        <form method='POST' action="{% url "cancelar_pago_cliente" pedido.id_pedido %}">
+            {% csrf_token %}
+            <button type="submit" class="boton-deshacer-pago">Deshacer pago</button>
+        </form>
+    </div> 
 {% endblock %}

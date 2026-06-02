@@ -9,6 +9,13 @@ body {
     animation-fill-mode: both;
     background-color: #eee;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
 }
 
 :root {
@@ -154,14 +161,28 @@ nav {
     font-size: 1.1em;
     font-weight: bold;
     padding: 3px 0;
-    margin-left: 10px;
     text-transform: uppercase;
+    transform: scale(1);
+    transition: transform .2s, text-decoration .2s;
+}
+
+.nombre-usuario-perfil:hover {
+    transform: scale(1.03);
+    text-decoration: underline;
 }
 
 .img-logout {
     width: 28px;
     height: 28px;
 }
+
+.img-foto-perfil {
+    width: 35px; 
+    height: 35px; 
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
 /* ==========  NAV ENDS HERE ========== */
 
 /* ==========  MAIN STARTS HERE ========== */
@@ -384,3 +405,16 @@ footer {
 }
 
 /* ==========  BARRA DE BUSQUEDA ENDS HERE ========== */
+
+/* ==========  EXTRAS STARTS HERE ========== */
+
+.p-mensaje {
+    color: #fff;
+    background-color: #571515e7;
+    border: solid 2px #cc6666;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+/* ==========  EXTRAS ENDS HERE ========== */

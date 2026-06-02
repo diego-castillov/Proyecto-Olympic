@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/ubicacion.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-titulos-textos-principal">
+        <h2 class="ubicacion-titulo">UBICACION</h2>
+        <p class="texto-abre">Abierto hasta las 7:00 p.m.</p>
+    </div>
+    <div class="div-mapa-ubicacion">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1609.7932155193591!2d-66.16381984058295!3d-17.38516762302631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e3740cf8ac5767%3A0xce7fd2f6cc1b192a!2sClub%20Olympic!5e0!3m2!1sen!2sbo!4v1778519615773!5m2!1sen!2sbo" width="80%" height="500" style="border:0; display: block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="div-extras-info">
+        <div class="div-encuentranos">
+            <h2 class="subtitulo-encuentranos">Encuentranos</h2>
+            <p class="texto-ubicacion">Av. Pedro Domingo Murillo</p>
+            <p class="texto-ubicacion">al lado del Parque de la Familia.</p>
+            <div class="div-telefono">
+                <a href="tel:+59175990059" target="_blank" rel="noopener noreferrer" class="link-telefono">+591 75990059</a>
+            </div>
+        </div>
+        <div class="div-horarios">
+            <h2 class="subtitulo-horarios">Horarios</h2>
+            <ul>
+                <li class="li-horario">Lunes           8AM - 7PM</li>
+                <li class="li-horario">Martes          8AM - 7PM</li>
+                <li class="li-horario">Miércoles     8AM - 7PM</li>
+                <li class="li-horario">Jueves         8AM - 7PM</li>
+                <li class="li-horario">Viernes        8AM - 7PM</li>
+                <li class="li-horario">Sábado         (Cerrado)</li>
+                <li class="li-horario">Domingo       (Cerrado)</li>
+            </ul>
+        </div>
+        <div class="div-ayuda">
+            <h2 class="subtitulo-ayuda">¿Necesitas Ayuda?</h2>
+            <p class="texto-ayuda">Para cualquier consulta sobre nuestros productos oficiales o procesos de registro, no dudes en contactarnos al número de celular que aparece en pantallaz. En caso de requerir asistencia técnica, cambios o presentar alguna sugerencia, te invitamos a visitarnos personalmente en las instalaciones del Club. Encuentra nuestra dirección exacta en el mapa interactivo de abajo.</p>
+        </div>
+    </div>
+{% endblock %}

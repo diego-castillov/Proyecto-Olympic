@@ -1,0 +1,122 @@
+body {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 18px;
+}
+
+:root {
+    --color-botones: #cf242f;
+    --color-hover-botones: #e86465;
+    --color-texto-botones: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+.div-principal {
+    width: 45%;
+    margin: 25px 0 0 0;
+    padding: 15px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+}
+
+.subtitulo-recibo {
+    font-size: 1.6em;
+}
+
+.info-detalle {
+    font-size: 1.1em;
+}
+
+.separador-linea {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    margin: 15px 0;
+}
+
+.contenedor-qr {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.texto-esperando-confirmacion {
+    color: #666; 
+    font-style: italic;
+}
+
+.div-pago-exitoso, .div-pago-transaccion {
+    background-color: #e8f5e9;
+    padding: 15px; 
+    border-radius: 8px; 
+    border-left: 5px solid #4caf50;
+}
+
+.div-pago-transaccion {
+    background-color: #a7b0a7;
+    border-left: 5px solid #2c662e;
+    color: #eee;
+}
+
+.texto-exito {
+    color: #2e7d32;
+}
+
+.div-botones {
+    width: 45%;
+    padding: 15px 20px;
+    margin: 25px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0003;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-deshacer-pago {
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    font-family: inherit; 
+    line-height: 1;    
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px 20px;
+    margin-left: 10px;
+    background-color: var(--color-botones);
+    border: none;
+    border-radius: 10px;
+    outline: solid #fff 1px;
+    transform: scale(1);
+    transition: outline .2s, transform .2s, background-color .2s, color .2s;
+}
+
+.boton-deshacer-pago:hover {
+    color: #111;
+    outline: solid var(--color-hover-botones) 2px;
+    transform: scale(1.05);
+    background-color: #fff;
+}

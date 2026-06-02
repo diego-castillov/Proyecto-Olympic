@@ -1,0 +1,48 @@
+{% extends "base_panel.html" %}
+{% load static %}
+
+{% block enlaces_extra %}
+    <li><a href="{% url "crear_proveedor" %}" class="nav-link">Proveedores</a></li>
+    <li><a href="{% url "categorias" %}" class="nav-link">Categorias</a></li>
+    <li><a href="{% url "panel_pedidos" %}" class="nav-link">Pedidos</a></li>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/simulador.css" %}">
+{% endblock %}
+
+{% block contenido %}
+    <div class="div-principal">
+        <h2 class="titulo-simulador-banco">SIMULADOR DE BANCO</h2>
+        <p class="texto-simulador">Simulador de banco para aprobar manualmente los pagos</p>
+        <div class="grid-pedidos">
+            {% for pedido in pedidos %}
+                <article class="tarjeta-pedido">
+                        <p class="label-input"><span>ID Pedido:</span> {{pedido.id_pedido}}</p>
+                        <p class="label-input"><span>Nombre:</span> {{ pedido.id_cliente.nombre }} {{ pedido.id_cliente.apellido }}</p>
+                        <p class="label-input"><span>Fecha Pago:</span> {{ pedido.fecha_pago }}</p>
+                        <p class="label-input"><span>Estado Pago:</span> {{ pedido.estado_pago }}</p>
+                        <form method="POST" action="{% url 'panel_simulador_banco' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="pedido_id" value="{{ pedido.id_pedido }}">
+                            <input type="hidden" name="accion" value="aprobar">
+                            <button type="submit" class="boton-aprobar" style="background-color: #28a745; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                                Aprobar pago
+                            </button>
+                        </form>                   
+                        <form method="POST" action="{% url 'panel_simulador_banco' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="pedido_id" value="{{ pedido.id_pedido }}">
+                            <input type="hidden" name="accion" value="rechazar">
+                            <button type="submit" class="boton-rechazar" style="background-color: #333; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;" onclick="return confirm('¿Seguro que deseas deshacer/rechazar este pago?');">
+                                Deshacer / Rechazar
+                            </button>
+                        </form>
+                </article>
+            {% empty %}
+                <p>No hay pedidos esperando pago.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

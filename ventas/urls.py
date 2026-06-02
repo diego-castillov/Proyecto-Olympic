@@ -9,4 +9,8 @@ urlpatterns = [
     path('procesar_compra/', views.procesar_compra, name='procesar_compra'),
     path('recibo/<int:id_pedido>/', views.ver_recibo, name='ver_recibo'),
     path('panel_pedidos/', views.panel_pedidos, name='panel_pedidos'),
+    path('pago/qr/<int:id_pedido>/', views.pantalla_pago_qr, name='pantalla_pago_qr'),
+    path('api/verificar-pago/<int:id_pedido>/', views.verificar_estado_pago, name='verificar_estado_pago'),
+    path('admin-oculto/banco/', views.panel_simulador_banco, name='panel_simulador_banco'),
+    path('cancelar-pago/<int:id_pedido>/', views.cancelar_pago_cliente, name='cancelar_pago_cliente'),
 ]

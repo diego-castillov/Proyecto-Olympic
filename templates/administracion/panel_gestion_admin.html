@@ -14,7 +14,11 @@
 {% block contenido %}
     <h2 class="titulo-lista-usuarios">LISTA DE USUARIOS</h2>
         <p class="total-usuarios">Total de usuarios en sistema: {{ total_usuarios }}</p>
-        <hr>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="p-mensaje">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         <div class="grid-usuarios">
             {% for usuario in usuarios_registrados %}
                 <article class="tarjeta-usuario">

@@ -1,30 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp - Olympic</title>
+    <link rel="stylesheet" href="{% static "css/signup.css" %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h2>SIGN UP - OLYMPIC</h2>
-    <div>
-        <form method="POST" action="{% url "signup_cliente" %}">
-            {% csrf_token %}
-            <label>Nombre de Usuario:</label><br>
-            <input type="text" name="username" required><br><br>
-            <label>Nombre:</label><br>
-            <input type="text" name="nombre" required><br><br>
-            <label>Apellido:</label><br>
-            <input type="text" name="apellido" required><br><br>
-            <label>Email:</label><br>
-            <input type="email" name="email" required><br><br>
-            <label>Telefono:</label><br>
-            <input type="text" name="telefono" required><br><br>
-            <label>Contreseña:</label><br>
-            <input type="password" name="password" required><br><br>   
-            <button type="submit">Crear Cuenta</button>        
-        </form>
+    <div class="div-olympic-logo">
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'img/olympic-logo-login.png' %}" alt="Logo Olympic" class="img-logo">
+        </a>
+    </div>   
+    <div class="div-signup">
+        <h2>SIGN UP - OLYMPIC</h2>        
+        <form method="POST" action="{% url 'signup_cliente' %}" enctype="multipart/form-data" class="form-signup">
+            {% csrf_token %}            
+            <div class="input-grupo">
+                <label class="label-input">Nombre de Usuario:</label>
+                <input type="text" name="username" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Nombre:</label>
+                <input type="text" name="nombre" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Apellido:</label>
+                <input type="text" name="apellido" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Email:</label>
+                <input type="email" name="email" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Teléfono:</label>
+                <input type="text" name="telefono" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Contraseña:</label>
+                <input type="password" name="password" class="input-signup" required>
+            </div>            
+            <div class="input-grupo">
+                <label class="label-input">Foto de Perfil:</label>
+                <input type="file" id="foto_de_perfil" name="foto_de_perfil" accept="image/*" class="input-archivo-oculto">
+                <label for="foto_de_perfil" class="boton-foto-perfil">Seleccionar Imagen</label>
+            </div>            
+            <div class="input-grupo input-grupo-crear">
+                <button type="submit" class="boton-crear-cuenta">Crear Cuenta</button> 
+            </div>
+        </form>        
+        <a href="{% url 'iniciar_sesion' %}" class="link-login">¿Ya tienes una cuenta? Inicia Sesión</a>
     </div>
-    <a href="{% url "iniciar_sesion" %}">¿Ya tienes una cuenta? Inicia Sesión</a>
 </body>
 </html>
